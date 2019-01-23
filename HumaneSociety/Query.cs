@@ -22,7 +22,7 @@ namespace HumaneSociety
         {
             // HumaneSocietyDataContext db = new HumaneSocietyDataContext();
 
-            Client client = db.Clients.Where(c => c.Username == userName && c.Password == password).Single();
+            Client client = db.Clients.Where(c => c.userName == userName && c.Password == password).Single();
 
             return client;
         }
@@ -36,7 +36,7 @@ namespace HumaneSociety
             return allClients;
         }
 
-        internal static void AddNewClient(string firstName, string lastName, string username, string password, string email, string streetAddress, int zipCode, int stateId)
+        internal static void AddNewClient(string firstName, string lastName, string userName, string password, string email, string streetAddress, int zipCode, int stateId)
         {
             // HumaneSocietyDataContext  db = new HumaneSocietyDataContext();
 
@@ -44,7 +44,7 @@ namespace HumaneSociety
 
             newClient.FirstName = firstName;
             newClient.LastName = lastName;
-            newClient.UserName = username;
+            newClient.userName = userName;
             newClient.Password = password;
             newClient.Email = email;
 
@@ -83,7 +83,7 @@ namespace HumaneSociety
             // update clientFromDb information with the values on clientWithUpdates (aside from address)
             clientFromDb.FirstName = clientWithUpdates.FirstName;
             clientFromDb.LastName = clientWithUpdates.LastName;
-            clientFromDb.UserName = clientWithUpdates.UserName;
+            clientFromDb.userName = clientWithUpdates.userName;
             clientFromDb.Password = clientWithUpdates.Password;
             clientFromDb.Email = clientWithUpdates.Email;
 
@@ -135,27 +135,27 @@ namespace HumaneSociety
         {
             // HumaneSocietyDataContext  db = new HumaneSocietyDataContext();
 
-            Employee employeeFromDb = db.Employees.Where(e => e.UserName == userName && e.Password == password).FirstOrDefault();
+            Employee employeeFromDb = db.Employees.Where(e => e.userName == userName && e.Password == password).FirstOrDefault();
 
             return employeeFromDb;
         }
 
-        internal static bool CheckEmployeeUserNameExist(string userName)
+        internal static bool CheckEmployeeuserNameExist(string userName)
         {
             // HumaneSocietyDataContext  db = new HumaneSocietyDataContext();
 
-            Employee employeeWithUserName = db.Employees.Where(e => e.UserName == userName).FirstOrDefault();
+            Employee employeeWithuserName = db.Employees.Where(e => e.userName == userName).FirstOrDefault();
 
-            return employeeWithUserName == null;
+            return employeeWithuserName == null;
         }
 
-        internal static void AddUsernameAndPassword(Employee employee)
+        internal static void AdduserNameAndPassword(Employee employee)
         {
             // HumaneSocietyDataContext  db = new HumaneSocietyDataContext();
 
             Employee employeeFromDb = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
 
-            employeeFromDb.UserName = employee.UserName;
+            employeeFromDb.userName = employee.userName;
             employeeFromDb.Password = employee.Password;
 
             db.SubmitChanges();
