@@ -233,7 +233,7 @@ namespace HumaneSociety
             throw new Exception();
         }
 
-        //Need more work - need to figure out return type
+        
         public static int GetCategoryId()
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
@@ -246,7 +246,12 @@ namespace HumaneSociety
 
         public static int GetDietPlanId()
         {
-            throw new Exception();
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            List<string> plans = new List<string>() { "Choose a Diet Plan:", "1. Canine", "2. Feline", "3. Avian", "4. Reptile", "5. Mammal", "Enter the corresponding number." };
+            UserInterface.DisplayUserOptions(plans);
+            int dietNameId = Int32.Parse(UserInterface.GetUserInput());
+            var dietPlan = db.DietPlans.Where(m => m.DietPlanId == dietNameId).Single();
+            return dietPlan.DietPlanId;
         }
 
         //Need to work on this as soon as I complete Get category by ID
