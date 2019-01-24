@@ -119,6 +119,48 @@ namespace HumaneSociety
             db.SubmitChanges();
         }
 
+        internal static List<Animal> SearchForAnimalByMultipleTraits(Dictionary<int, string> searchParameterDictionary)
+        {
+
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            string dictionaryValue = searchParameterDictionary.Values.ElementAt(0);
+            int dictionaryKey = searchParameterDictionary.Keys.ElementAt(0);
+
+
+            switch (dictionaryKey)
+            {
+                case 1:
+                    var categorySearchResult = db.Animals.Where(a=>a.Category.Name == dictionaryValue).ToList();
+                    return categorySearchResult;
+                case 2:
+                    var nameSearchResult = db.Animals.Where(a => a.Name == dictionaryValue).ToList();
+                    return nameSearchResult;
+                case 3:
+                    var ageSearchResult = db.Animals.Where(a => a.Age == Int32.Parse(dictionaryValue)).ToList();
+                    return ageSearchResult;
+                case 4:
+                    var demeanorSearchResult = db.Animals.Where(a => a.Demeanor == dictionaryValue).ToList();
+                    return demeanorSearchResult;
+                case 5:
+                    var kidFriendlySearchResult = db.Animals.Where(a => a.KidFriendly.ToString() == dictionaryValue).ToList();
+                    return kidFriendlySearchResult;
+                case 6:
+                    var petFriendlySearchResult = db.Animals.Where(a => a.PetFriendly.ToString() == dictionaryValue).ToList();
+                    return petFriendlySearchResult;
+                case 7:
+                    var weightSearchResult = db.Animals.Where(a => a.Weight == Int32.Parse(dictionaryValue)).ToList();
+                    return weightSearchResult;
+                case 9:
+                    var idSearchResult = db.Animals.Where(a => a.AnimalId == Int32.Parse(dictionaryValue)).ToList();
+                    return idSearchResult;
+                default:
+                    List<Animal> defaultReturn = new List<Animal>();
+                    return defaultReturn;
+            }
+            
+            
+        }
+
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
         {
             HumaneSocietyDataContext  db = new HumaneSocietyDataContext();
@@ -193,12 +235,7 @@ namespace HumaneSociety
 
             db.SubmitChanges();
         }
-
-        public static List<Animal> SearchForAnimalByMultipleTraits()
-        {
-            throw new Exception();
-
-        }
+        
 
         // USER EMPLOYEE CLASS //
 
