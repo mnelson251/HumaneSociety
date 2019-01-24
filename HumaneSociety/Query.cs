@@ -176,17 +176,25 @@ namespace HumaneSociety
             return animal;
         }
 
-        public static void Adoption(Animal animal, Client client)
-        {
 
+        //Still some doubts on this one -- need to know a way to check/debug
+        public static void Adopt(Animal animal, Client client)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Adoption adoption = db.Adoptions.Where(c => c.AnimalId == animal.AnimalId && c.ClientId == client.ClientId).Single();
+
+            adoption.AdoptionFee += 75;
+            if(adoption.PaymentCollected == true)
+            {
+                adoption.Animal.AdoptionStatus = "Adopted";
+                adoption.ApprovalStatus = "True";
+
+            }
+
+            db.SubmitChanges();
         }
 
         public static void SearchForAnimalByMultipleTraits()
-        {
-
-        }
-
-        public static void Adopt(Animal animal, Client client)
         {
 
         }

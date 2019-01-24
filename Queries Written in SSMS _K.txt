@@ -1,0 +1,3 @@
+---Query Made to Enter Animal Status(Adopted or Not) in Adoptions Table- User Story # 6
+ALTER TABLE dbo.adoptions
+ADD AnimalStatus varchar(50);
