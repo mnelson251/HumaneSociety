@@ -267,7 +267,9 @@ namespace HumaneSociety
 
         public static void RemoveAnimal(Animal animal)
         {
+
             throw new Exception();
+
         }
 
         

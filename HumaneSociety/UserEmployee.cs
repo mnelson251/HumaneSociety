@@ -108,6 +108,14 @@ namespace HumaneSociety
                 CheckAnimalStatus(ID);
                 return;
             }
+            if(animals.Count == 1)
+            {
+                Console.Clear();
+                UserInterface.DisplayUserOptions("***ANIMAL INFOMATION***");
+                UserInterface.DisplayAnimals(animals);
+                Console.ReadLine();
+                return;
+            }
             if(animals.Count == 0)
             {
                 UserInterface.DisplayUserOptions("Animal not found please use different search criteria");

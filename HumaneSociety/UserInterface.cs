@@ -89,7 +89,7 @@ namespace HumaneSociety
         {
             foreach(Animal animal in animals)
             {
-                Console.WriteLine(animal.AnimalId + " " + animal.Name + " " + animal.Category.Name);
+                Console.WriteLine("Animal ID: " + animal.AnimalId + "\nAnimal Name: " + animal.Name + "\nAnimal Category: " + animal.Category.Name);
             }
         }
 
@@ -181,6 +181,7 @@ namespace HumaneSociety
                 }
                 else
                 {
+                    isSearching = false;
                     searchParameters = EnterSearchCriteria(searchParameters, input);
                 }
             }
