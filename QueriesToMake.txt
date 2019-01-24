@@ -1,0 +1,52 @@
+User Interface Cs
+	Query - GetRoom(animal ID)
+
+User Employee Cs
+	Query - GetPendingAdoptions()
+	Query - Update Adoption
+	Query - Search For Animal By Multiple Traits
+	Query - Get Shots(animal)
+	Query - Update Shots("string", animal)
+	Query - Enter Animal Update(animal, update)
+	Query - Remove Animal(animal)
+	Query - Get Category
+	Query - GetDietPlan()
+	Query - AddAnimal(animal)
+	Query - AddUsernameAndPassword(employee)
+	Query - CheckEmployeeUserNameExists(username)
+User Cs
+	No Query
+Program Cs
+	No Query
+PointOfEntry Cs
+	No Query
+Customer Cs
+	Query - GetAnimalById(int id)
+	Query - Adopt(animal, client)
+	Query - SearchForAnimalByMultipleTrait()
+Admin Cs
+	Query - RunEmployeeQueries
+Query Cs
+	Methods - GetStates() Returns List<USState>
+		- GetClient(string userName, string password) Returns Client
+		- GetClients() - returns all clients
+		- AddNewClient(fn, ln, uN, pass, email, add, zip, stateid)
+		- UpdateClient(Client client) 
+		- Employee RetrieveEmployeeUser(email, empNumber) return employee
+		- CheckEmployeeNameExists(uN) returns bool
+		- AddUserNameAndPassword(employee)				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
