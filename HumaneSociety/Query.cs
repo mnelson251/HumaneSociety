@@ -168,85 +168,92 @@ namespace HumaneSociety
             db.SubmitChanges();
         }
 
-        //// CUSTOMER CLASS QUERY METHODS //
-        //public static void GetAnimalById(int Id)
-        //{
+        // CUSTOMER CLASS QUERY METHODS //
+        public static Animal GetAnimalByID(int id)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Animal animal = db.Animals.Where(c => c.AnimalId == id).Single();
+            return animal;
+        }
 
-        //}
+        public static void Adoption(Animal animal, Client client)
+        {
 
-        //public static void Adoption(Animal animal, Client client)
-        //{
+        }
 
-        //}
+        public static void SearchForAnimalByMultipleTraits()
+        {
 
-        //public static void SearchForAnimalByMultipleTraits()
-        //{
+        }
 
-        //}
+        public static void Adopt(Animal animal, Client client)
+        {
 
-        //// USER EMPLOYEE CLASS //
-        //public static void GetPendingAdoptions()
-        //{
+        }
 
-        //}
+        // USER EMPLOYEE CLASS //
+        public static void GetPendingAdoptions()
+        {
 
-        //public static void UpdateAdoption(bool b, Adoption adoption)
-        //{
+        }
 
-        //}
+        public static void UpdateAdoption(bool b, Adoption adoption)
+        {
 
-        //public static void GetShots(Animal animal)
-        //{
+        }
 
-        //}
+        public static void GetShots(Animal animal)
+        {
 
-        //public static void UpdateShot(string word, Animal animal)
-        //{
+        }
 
-        //}
+        public static void UpdateShot(string word, Animal animal)
+        {
 
-        //public static void EnterAnimalUpdate(Animal animal, updates)
-        //{
+        }
 
-        //}
+        public static void EnterAnimalUpdate(Animal animal, updates)
+        {
 
-        //public static void RemoveAnimal(Animal animal)
-        //{
+        }
 
-        //}
+        public static void RemoveAnimal(Animal animal)
+        {
 
-        //public static void GetCategoryId()
-        //{
+        }
 
-        //}
+        public static void GetCategoryId()
+        {
 
-        //public static void GetDietPlanId()
-        //{
+        }
 
-        //}
+        public static void GetDietPlanId()
+        {
 
-        //public static void AddAnimal(Animal animal)
-        //{
+        }
 
-        //}
+        public static void AddAnimal(Animal animal)
+        {
 
-        //public static void AddUsernamAndPassword(Employee employee)
-        //{
+        }
 
-        //}
+        public static void AddUsernamAndPassword(Employee employee)
+        {
 
-        //// ADMIN CLASS //
+        }
 
-        //public static void RunEmployeeQueries (Employee employee, string word)
-        //{
+        // ADMIN CLASS //
 
-        //}
+        public static void RunEmployeeQueries(Employee employee, string word)
+        {
 
-        //// USERINTERFACE CLASS //
-        //public static void GetRoom(Animal.AnimalId)
-        //{
+        }
 
-        //}
+        // USERINTERFACE CLASS //
+        public static void GetRoom(Animal.AnimalId)
+        {
+
+        }
 
     }
 }
