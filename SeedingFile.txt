@@ -9,7 +9,7 @@ INSERT INTO dbo.Categories (CategoryId, Name) VALUES (7, 'Rabbit');
 INSERT INTO dbo.Categories (CategoryId, Name) VALUES (8, 'Snake');
 INSERT INTO dbo.Categories (CategoryId, Name) VALUES (9, 'Monkey');
 INSERT INTO dbo.Categories (CategoryId, Name) VALUES (10, 'Hamster');
-//  ANIMAL TABLE
+
 
 // DIET PLANS
 INSERT INTO dbo.DietPlans (DietPlanId, Name, FoodType, FoodAmountInCups) VALUES (1, 'Canine', 'Dry', 3);

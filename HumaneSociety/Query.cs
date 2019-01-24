@@ -194,10 +194,22 @@ namespace HumaneSociety
             db.SubmitChanges();
         }
 
-        public static void SearchForAnimalByMultipleTraits()
-        {
+        //public static List<Animal> SearchForAnimalByMultipleTraits(Dictionary <int,string> passedSearchDictionary) // need to set the return type
+        //{
+        //    HumaneSocietyDataContext db = new HumaneSocietyDataContext();
 
-        }
+        //    switch (passedSearchDictionary)
+        //    {
+        //        case "1":
+
+
+
+        //    }
+
+        //    var searchResult = db.Animals.Where (d => d.Name == passedSearchDictionary[2] ).ToList();
+
+           
+        //}
 
         // USER EMPLOYEE CLASS //
         public static List<Adoption> GetPendingAdoptions()
