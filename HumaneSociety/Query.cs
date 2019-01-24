@@ -200,9 +200,11 @@ namespace HumaneSociety
         }
 
         // USER EMPLOYEE CLASS //
-        public static void GetPendingAdoptions()
+        public static List<Adoption> GetPendingAdoptions()
         {
-
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var pendingAdoptions =  db.Adoptions.Where(m => m.ApprovalStatus == "pending").ToList();
+            return pendingAdoptions;
         }
 
         public static void UpdateAdoption(bool b, Adoption adoption)
