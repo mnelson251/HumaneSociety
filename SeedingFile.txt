@@ -1,0 +1,55 @@
+// CATEGORIES TABLE
+INSERT INTO dbo.Categories (CategoryId, Name) VALUES (1, 'Dog');
+INSERT INTO dbo.Categories (CategoryId, Name) VALUES (2, 'Cat');
+INSERT INTO dbo.Categories (CategoryId, Name) VALUES (3, 'Lizard');
+INSERT INTO dbo.Categories (CategoryId, Name) VALUES (4, 'Bird');
+INSERT INTO dbo.Categories (CategoryId, Name) VALUES (5, 'Rodent');
+INSERT INTO dbo.Categories (CategoryId, Name) VALUES (6, 'Ferret');
+INSERT INTO dbo.Categories (CategoryId, Name) VALUES (7, 'Rabbit');
+INSERT INTO dbo.Categories (CategoryId, Name) VALUES (8, 'Snake');
+INSERT INTO dbo.Categories (CategoryId, Name) VALUES (9, 'Monkey');
+INSERT INTO dbo.Categories (CategoryId, Name) VALUES (10, 'Hamster');
+//  ANIMAL TABLE
+
+// DIET PLANS
+INSERT INTO dbo.DietPlans (DietPlanId, Name, FoodType, FoodAmountInCups) VALUES (1, 'Canine', 'Dry', 3);
+INSERT INTO dbo.DietPlans (DietPlanId, Name, FoodType, FoodAmountInCups) VALUES (2, 'Feline', 'Wet', 2);
+INSERT INTO dbo.DietPlans (DietPlanId, Name, FoodType, FoodAmountInCups) VALUES (3, 'Avian', 'Seed', 1);
+INSERT INTO dbo.DietPlans (DietPlanId, Name, FoodType, FoodAmountInCups) VALUES (4, 'Reptile', 'Fresh', 2);
+INSERT INTO dbo.DietPlans (DietPlanId, Name, FoodType, FoodAmountInCups) VALUES (5, 'Mammal', 'Fresh', 1);
+
+// SHOTS
+INSERT INTO dbo.Shots (ShotId, Name) VALUES (1, 'Rabies');
+INSERT INTO dbo.Shots (ShotId, Name) VALUES (2, 'Distemper');
+INSERT INTO dbo.Shots (ShotId, Name) VALUES (3, 'Dewormer');
+INSERT INTO dbo.Shots (ShotId, Name) VALUES (4, 'Parvovirus');
+INSERT INTO dbo.Shots (ShotId, Name) VALUES (5, 'Leukemia');
+
+// ROOMS
+INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (1, 1001);
+INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (2, 1002);
+INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (3, 1003);
+INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (4, 1004);
+INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (5, 1005);
+INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (6, 1006);
+INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (7, 1007);
+INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (8, 1008);
+INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (9, 1009);
+INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (10, 1010);
+// Animal
+
+INSERT INTO dbo.Animals (AnimalId, Name, CategoryId, Weight, Age, DietPlanID, Demeanor, KidFriendly, PetFriendly, Gender) VALUES (101,'Roxy',1,52,3,1,'relaxed',1,0,'female');
+
+INSERT INTO dbo.Animals (AnimalId, Name, CategoryId, Weight, Age, DietPlanID, Demeanor, KidFriendly, PetFriendly, Gender) VALUES 
+(201,'Indy',2,15,5,2,'relaxed',1, 0,'male');
+
+INSERT INTO dbo.Animals (AnimalId, Name, CategoryId, Weight, Age, DietPlanID, Demeanor, KidFriendly, PetFriendly, Gender) VALUES 
+(301,'Rex',3,2,2,4,'calm',1,1,'male');
+
+INSERT INTO dbo.Animals (AnimalId, Name, CategoryId, Weight, Age, DietPlanID, Demeanor, KidFriendly, PetFriendly, Gender) VALUES 
+(401,'Polly',4,2,19,3,'involved',1,0,'female');
+
+INSERT INTO dbo.Animals (AnimalId, Name, CategoryId, Weight, Age, DietPlanID, Demeanor, KidFriendly, PetFriendly, Gender) VALUES 
+(901,'Harambree',9,13,5,5,'mean',0,0,'male');
+
+
