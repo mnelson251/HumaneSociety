@@ -223,7 +223,7 @@ namespace HumaneSociety
             throw new Exception();
         }
 
-        public static void EnterAnimalUpdate(Animal animal, string updates)
+        public static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
         {
             throw new Exception();
         }
@@ -240,8 +240,8 @@ namespace HumaneSociety
             List<string> types = new List<string>() { "What is the Animal Type:", "1. Dog", "2. Cat", "3. Lizard", "4. Bird", "5. Rodent", "Enter the corresponding number." };
             UserInterface.DisplayUserOptions(types);
             int animalTypeId = Int32.Parse(UserInterface.GetUserInput());
-            var category = db.Categories.Where(c => c.CategoryId == animalTypeId).Single();
-            
+            var category = db.Categories.Where(c => c.CategoryId == animalTypeId);
+            //return category;
             
         }
 
@@ -259,7 +259,7 @@ namespace HumaneSociety
             db.SubmitChanges();
         }
 
-        public static void AddUsernamAndPassword(Employee employee)
+        public static void AddUsernameAndPassword(Employee employee)
         {
             throw new Exception();
         }
@@ -272,7 +272,7 @@ namespace HumaneSociety
         }
 
         // USERINTERFACE CLASS //
-        public static void GetRoom(Animal Animal)
+        public static Room GetRoom(int id)
         {
             throw new Exception();
         }
