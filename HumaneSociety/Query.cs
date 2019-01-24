@@ -238,10 +238,12 @@ namespace HumaneSociety
         
 
         // USER EMPLOYEE CLASS //
+
+        //DONE
         public static List<Adoption> GetPendingAdoptions()
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            var pendingAdoptions =  db.Adoptions.Where(m => m.ApprovalStatus == "pending").ToList();
+            var pendingAdoptions =  db.Adoptions.Where(m => m.ApprovalStatus.ToLower() == "pending").ToList();
             return pendingAdoptions;
         }
 
@@ -272,7 +274,7 @@ namespace HumaneSociety
 
         }
 
-        
+        //DONE
         public static int GetCategoryId()
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
@@ -283,6 +285,7 @@ namespace HumaneSociety
             return category.CategoryId;
         }
 
+        //DONE
         public static int GetDietPlanId()
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
@@ -293,11 +296,10 @@ namespace HumaneSociety
             return dietPlan.DietPlanId;
         }
 
-        //Need to work on this as soon as I complete Get category by ID
+        //Done - Animal Added
         public static void AddAnimal(Animal animal)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-
             db.Animals.InsertOnSubmit(animal);
             db.SubmitChanges();
         }

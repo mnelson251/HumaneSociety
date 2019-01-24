@@ -20,7 +20,7 @@ namespace HumaneSociety
             else
             {
                 Console.Clear();
-               // LogInPreExistingUser();
+                LogInPreExistingUser();
             }
             RunUserMenus();
         }
