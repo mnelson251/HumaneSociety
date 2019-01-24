@@ -22,7 +22,9 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
 
+
             Client client = db.Clients.Where(c => c.UserName == userName && c.Password == password).Single();
+
 
             return client;
         }
@@ -75,7 +77,9 @@ namespace HumaneSociety
 
         internal static void UpdateClient(Client clientWithUpdates)
         {
+
              HumaneSocietyDataContext  db = new HumaneSocietyDataContext();
+
 
             // find corresponding Client from Db
             Client clientFromDb = db.Clients.Where(c => c.ClientId == clientWithUpdates.ClientId).Single();
@@ -135,21 +139,24 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext  db = new HumaneSocietyDataContext();
 
+
             Employee employeeFromDb = db.Employees.Where(e => e.UserName == userName && e.Password == password).FirstOrDefault();
+
 
             return employeeFromDb;
         }
 
-        internal static bool CheckEmployeeuserNameExist(string userName)
+        internal static bool CheckEmployeeUserNameExist(string userName)
         {
             HumaneSocietyDataContext  db = new HumaneSocietyDataContext();
 
-            Employee employeeWithuserName = db.Employees.Where(e => e.UserName == userName).FirstOrDefault();
+            Employee employeeWithUserName = db.Employees.Where(e => e.UserName == userName).FirstOrDefault();
 
-            return employeeWithuserName == null;
+
+            return employeeWithUserName == null;
         }
 
-        internal static void AdduserNameAndPassword(Employee employee)
+        internal static void AddUserNameAndPassword(Employee employee)
         {
             HumaneSocietyDataContext  db = new HumaneSocietyDataContext();
 
@@ -160,5 +167,86 @@ namespace HumaneSociety
 
             db.SubmitChanges();
         }
+
+        //// CUSTOMER CLASS QUERY METHODS //
+        //public static void GetAnimalById(int Id)
+        //{
+
+        //}
+
+        //public static void Adoption(Animal animal, Client client)
+        //{
+
+        //}
+
+        //public static void SearchForAnimalByMultipleTraits()
+        //{
+
+        //}
+
+        //// USER EMPLOYEE CLASS //
+        //public static void GetPendingAdoptions()
+        //{
+
+        //}
+
+        //public static void UpdateAdoption(bool b, Adoption adoption)
+        //{
+
+        //}
+
+        //public static void GetShots(Animal animal)
+        //{
+
+        //}
+
+        //public static void UpdateShot(string word, Animal animal)
+        //{
+
+        //}
+
+        //public static void EnterAnimalUpdate(Animal animal, updates)
+        //{
+
+        //}
+
+        //public static void RemoveAnimal(Animal animal)
+        //{
+
+        //}
+
+        //public static void GetCategoryId()
+        //{
+
+        //}
+
+        //public static void GetDietPlanId()
+        //{
+
+        //}
+
+        //public static void AddAnimal(Animal animal)
+        //{
+
+        //}
+
+        //public static void AddUsernamAndPassword(Employee employee)
+        //{
+
+        //}
+
+        //// ADMIN CLASS //
+
+        //public static void RunEmployeeQueries (Employee employee, string word)
+        //{
+
+        //}
+
+        //// USERINTERFACE CLASS //
+        //public static void GetRoom(Animal.AnimalId)
+        //{
+
+        //}
+
     }
 }
