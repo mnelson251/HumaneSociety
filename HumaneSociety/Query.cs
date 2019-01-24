@@ -197,6 +197,7 @@ namespace HumaneSociety
         public static void SearchForAnimalByMultipleTraits()
         {
 
+
         }
 
         // USER EMPLOYEE CLASS //
@@ -232,10 +233,14 @@ namespace HumaneSociety
 
         }
 
-        public static void GetCategoryId()
-        {
+        //public static int GetCategoryId()
+        //{
+        //    HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+        //    Category category = db.Categories.Where(c => c.Name == c.Animals.Contains(d => dc.Name);
 
-        }
+
+        //    return category;
+        //}
 
         public static void GetDietPlanId()
         {
@@ -244,7 +249,10 @@ namespace HumaneSociety
 
         public static void AddAnimal(Animal animal)
         {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
 
+            db.Animals.InsertOnSubmit(animal);
+            db.SubmitChanges();
         }
 
         public static void AddUsernamAndPassword(Employee employee)
