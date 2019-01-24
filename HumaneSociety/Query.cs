@@ -194,9 +194,15 @@ namespace HumaneSociety
             db.SubmitChanges();
         }
 
+<<<<<<< HEAD
         //public static List<Animal> SearchForAnimalByMultipleTraits(Dictionary <int,string> passedSearchDictionary) // need to set the return type
         //{
         //    HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+=======
+        public static List<Animal> SearchForAnimalByMultipleTraits()
+        {
+            throw new Exception();
+>>>>>>> 0a953f9e028bc46eb6dac1765d90f1fd77437d4c
 
         //    switch (passedSearchDictionary)
         //    {
@@ -221,60 +227,71 @@ namespace HumaneSociety
 
         public static void UpdateAdoption(bool b, Adoption adoption)
         {
-
+            throw new Exception();
         }
 
-        public static void GetShots(Animal animal)
+        public static List<AnimalShot> GetShots(Animal animal)
         {
-
+            throw new Exception();
         }
 
         public static void UpdateShot(string word, Animal animal)
         {
-
+            throw new Exception();
         }
 
-        public static void EnterAnimalUpdate(Animal animal, updates)
+        public static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
         {
-
+            throw new Exception();
         }
 
         public static void RemoveAnimal(Animal animal)
         {
-
+            throw new Exception();
         }
 
+        //Need more work - need to figure out return type
         public static void GetCategoryId()
         {
-
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            List<string> types = new List<string>() { "What is the Animal Type:", "1. Dog", "2. Cat", "3. Lizard", "4. Bird", "5. Rodent", "Enter the corresponding number." };
+            UserInterface.DisplayUserOptions(types);
+            int animalTypeId = Int32.Parse(UserInterface.GetUserInput());
+            var category = db.Categories.Where(c => c.CategoryId == animalTypeId);
+            //return category;
+            
         }
 
         public static void GetDietPlanId()
         {
-
+            throw new Exception();
         }
 
+        //Need to work on this as soon as I complete Get category by ID
         public static void AddAnimal(Animal animal)
         {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
 
+            db.Animals.InsertOnSubmit(animal);
+            db.SubmitChanges();
         }
 
-        public static void AddUsernamAndPassword(Employee employee)
+        public static void AddUsernameAndPassword(Employee employee)
         {
-
+            throw new Exception();
         }
 
         // ADMIN CLASS //
 
         public static void RunEmployeeQueries(Employee employee, string word)
         {
-
+            throw new Exception();
         }
 
         // USERINTERFACE CLASS //
-        public static void GetRoom(Animal.AnimalId)
+        public static Room GetRoom(int id)
         {
-
+            throw new Exception();
         }
 
     }
