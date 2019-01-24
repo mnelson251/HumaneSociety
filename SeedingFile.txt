@@ -1,4 +1,5 @@
 // CATEGORIES TABLE
+SET IDENTITY_INSERT dbo.Categories ON
 INSERT INTO dbo.Categories (CategoryId, Name) VALUES (1, 'Dog');
 INSERT INTO dbo.Categories (CategoryId, Name) VALUES (2, 'Cat');
 INSERT INTO dbo.Categories (CategoryId, Name) VALUES (3, 'Lizard');
@@ -9,23 +10,30 @@ INSERT INTO dbo.Categories (CategoryId, Name) VALUES (7, 'Rabbit');
 INSERT INTO dbo.Categories (CategoryId, Name) VALUES (8, 'Snake');
 INSERT INTO dbo.Categories (CategoryId, Name) VALUES (9, 'Monkey');
 INSERT INTO dbo.Categories (CategoryId, Name) VALUES (10, 'Hamster');
-//  ANIMAL TABLE
+SET IDENTITY_INSERT dbo.Categories OFF
+
 
 // DIET PLANS
+SET IDENTITY_INSERT dbo.DietPlans ON
 INSERT INTO dbo.DietPlans (DietPlanId, Name, FoodType, FoodAmountInCups) VALUES (1, 'Canine', 'Dry', 3);
 INSERT INTO dbo.DietPlans (DietPlanId, Name, FoodType, FoodAmountInCups) VALUES (2, 'Feline', 'Wet', 2);
 INSERT INTO dbo.DietPlans (DietPlanId, Name, FoodType, FoodAmountInCups) VALUES (3, 'Avian', 'Seed', 1);
 INSERT INTO dbo.DietPlans (DietPlanId, Name, FoodType, FoodAmountInCups) VALUES (4, 'Reptile', 'Fresh', 2);
 INSERT INTO dbo.DietPlans (DietPlanId, Name, FoodType, FoodAmountInCups) VALUES (5, 'Mammal', 'Fresh', 1);
+SET IDENTITY_INSERT dbo.DietPlans OFF
 
 // SHOTS
+SET IDENTITY_INSERT dbo.Shots ON
 INSERT INTO dbo.Shots (ShotId, Name) VALUES (1, 'Rabies');
 INSERT INTO dbo.Shots (ShotId, Name) VALUES (2, 'Distemper');
 INSERT INTO dbo.Shots (ShotId, Name) VALUES (3, 'Dewormer');
 INSERT INTO dbo.Shots (ShotId, Name) VALUES (4, 'Parvovirus');
 INSERT INTO dbo.Shots (ShotId, Name) VALUES (5, 'Leukemia');
+SET IDENTITY_INSERT dbo.Shots OFF
+
 
 // ROOMS
+SET IDENTITY_INSERT dbo.Rooms ON
 INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (1, 1001);
 INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (2, 1002);
 INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (3, 1003);
@@ -36,8 +44,10 @@ INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (7, 1007);
 INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (8, 1008);
 INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (9, 1009);
 INSERT INTO dbo.Rooms (RoomId, RoomNumber) VALUES (10, 1010);
-// Animal
+SET IDENTITY_INSERT dbo.Rooms OFF
 
+// ANIMAL TABLE
+SET IDENTITY_INSERT dbo.Animals ON
 INSERT INTO dbo.Animals (AnimalId, Name, CategoryId, Weight, Age, DietPlanID, Demeanor, KidFriendly, PetFriendly, Gender) VALUES (101,'Roxy',1,52,3,1,'relaxed',1,0,'female');
 
 INSERT INTO dbo.Animals (AnimalId, Name, CategoryId, Weight, Age, DietPlanID, Demeanor, KidFriendly, PetFriendly, Gender) VALUES 
@@ -51,5 +61,6 @@ INSERT INTO dbo.Animals (AnimalId, Name, CategoryId, Weight, Age, DietPlanID, De
 
 INSERT INTO dbo.Animals (AnimalId, Name, CategoryId, Weight, Age, DietPlanID, Demeanor, KidFriendly, PetFriendly, Gender) VALUES 
 (901,'Harambree',9,13,5,5,'mean',0,0,'male');
+SET IDENTITY_INSERT dbo.Animals OFF
 
 
