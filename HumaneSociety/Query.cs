@@ -234,18 +234,17 @@ namespace HumaneSociety
         }
 
         //Need more work - need to figure out return type
-        public static void GetCategoryId()
+        public static int GetCategoryId()
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             List<string> types = new List<string>() { "What is the Animal Type:", "1. Dog", "2. Cat", "3. Lizard", "4. Bird", "5. Rodent", "Enter the corresponding number." };
             UserInterface.DisplayUserOptions(types);
             int animalTypeId = Int32.Parse(UserInterface.GetUserInput());
-            var category = db.Categories.Where(c => c.CategoryId == animalTypeId);
-            //return category;
-            
+            var category = db.Categories.Where(c => c.CategoryId == animalTypeId).Single();
+            return category.CategoryId;
         }
 
-        public static void GetDietPlanId()
+        public static int GetDietPlanId()
         {
             throw new Exception();
         }

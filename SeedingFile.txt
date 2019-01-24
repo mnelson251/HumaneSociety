@@ -63,4 +63,6 @@ INSERT INTO dbo.Animals (AnimalId, Name, CategoryId, Weight, Age, DietPlanID, De
 (901,'Harambree',9,13,5,5,'mean',0,0,'male');
 SET IDENTITY_INSERT dbo.Animals OFF
 
-
+// Employees made for testing purpose
+INSERT INTO dbo.Employees VALUES('Kanwar', 'Rupyal', 'krupyal', '1234', 8, 'kr@test.com')
+INSERT INTO dbo.Employees VALUES('Matt', 'Nelson', 'mnelson', '123', 5, 'mn@test.com')
