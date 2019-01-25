@@ -271,12 +271,21 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             var animalsToBeRemoved = db.Animals.Where(d => d.Name == animal.Name).ToList();
-            var roomStatus = GetAnimalHousing(); // list of rooms with animals in them
-
+            //var shotStatus = db.AnimalShots.Where(r => r.AnimalId == animal.AnimalId).Single();
+            //var adoptionStatus = db.Adoptions.Where(a => a.AnimalId == animal.AnimalId).Single();
+            
             ResetRoomFields(animal);
-            //RemoveAdoptionFields(animal);
-            //RemoveAnimalShotFields(animal);
 
+            if (db.AnimalShots != null)
+            {
+                RemoveAnimalShotFields(animal);
+            }
+
+            if (db.Rooms != null)
+            {
+                RemoveAdoptionFields(animal);
+            }
+            
             db.Animals.DeleteAllOnSubmit(animalsToBeRemoved);
             db.SubmitChanges();
         }
@@ -293,16 +302,22 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             var adoptionsToReset = db.Adoptions.Where(a => a.AnimalId == animal.AnimalId).SingleOrDefault();
-            db.Adoptions.DeleteOnSubmit(adoptionsToReset);
-            db.SubmitChanges();
+            if (adoptionsToReset != null)
+            {
+                db.Adoptions.DeleteOnSubmit(adoptionsToReset);
+                db.SubmitChanges();
+            }
         }
 
         public static void RemoveAnimalShotFields(Animal animal)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             var animalShotsToReset = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId).SingleOrDefault();
-            db.AnimalShots.DeleteOnSubmit(animalShotsToReset);
-            db.SubmitChanges();
+            if (animalShotsToReset != null)
+            {
+                db.AnimalShots.DeleteOnSubmit(animalShotsToReset);
+                db.SubmitChanges();
+            }
         }
 
         //DONE
