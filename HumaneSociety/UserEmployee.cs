@@ -26,7 +26,7 @@ namespace HumaneSociety
         }
         protected override void RunUserMenus()
         {
-            List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status",  "4. Approve Adoption" , "5. Check All Categories", "6. Code in Process",  "7. Check Housing", "8. Manage Housing"};
+            List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status",  "4. Approve Adoption" , "5. Check All Categories", "6. Make New Category",  "7. Check Housing", "8. Manage Housing"};
             UserInterface.DisplayUserOptions(options);
             string input = UserInterface.GetUserInput();
             RunUserInput(input);
@@ -56,7 +56,7 @@ namespace HumaneSociety
                     RunUserMenus();
                     return;
                 case "6":
-                   // CreateCategory();
+                    CreateCategory();
                     RunUserMenus();
                     return;
                 case "7":
@@ -84,6 +84,28 @@ namespace HumaneSociety
                 UserInterface.DisplayUserOptions($"Category ID - {category.CategoryId} is for Animal Type - {category.Name}");
             }
             Console.ReadLine();
+        }
+
+
+        //Creates new category depending upon the availability check
+        private void CreateCategory()
+        {
+            
+            string newType = UserInterface.GetStringData("type", "the new Animal");
+            if(!Query.CheckCategoryName(newType.Trim()))
+            {
+                Category category = new Category();
+                category.Name = newType.Trim();
+                Query.AddCategory(category);
+            }
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.DarkRed;
+                UserInterface.DisplayUserOptions("The Animal Category already Exists. Please Check all Categories");
+                Console.ReadLine();
+                Console.ResetColor();
+                Console.Clear();
+            }
         }
         //Method created to check and keep track of animal housing as per User Story
         private void CheckHousing()
