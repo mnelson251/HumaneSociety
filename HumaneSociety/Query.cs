@@ -271,17 +271,16 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             var animalsToBeRemoved = db.Animals.Where(d => d.Name == animal.Name).ToList();
-            //var shotStatus = db.AnimalShots.Where(r => r.AnimalId == animal.AnimalId).Single();
-            //var adoptionStatus = db.Adoptions.Where(a => a.AnimalId == animal.AnimalId).Single();
+            
             
             ResetRoomFields(animal);
 
-            if (db.AnimalShots != null)
+            if (db.AnimalShots.Where(s=> s.AnimalId == animal.AnimalId) != null) //test to see what this is comparing against a table or the "animalid"
             {
                 RemoveAnimalShotFields(animal);
             }
 
-            if (db.Rooms != null)
+            if (db.Adoptions.Where(a=>a.AnimalId == animal.AnimalId) != null) //^^^^same as above
             {
                 RemoveAdoptionFields(animal);
             }
@@ -351,10 +350,7 @@ namespace HumaneSociety
             db.SubmitChanges();
         }
 
-        public static void AddUsernameAndPassword(Employee employee)
-        {
-            throw new Exception();
-        }
+       
 
         // ADMIN CLASS //
 
