@@ -26,7 +26,7 @@ namespace HumaneSociety
         }
         protected override void RunUserMenus()
         {
-            List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status",  "4. Approve Adoption" };
+            List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status",  "4. Approve Adoption" , "5. Check All Categories", "6. Code in Process",  "7. Check Housing", "8. Manage Housing"};
             UserInterface.DisplayUserOptions(options);
             string input = UserInterface.GetUserInput();
             RunUserInput(input);
@@ -52,7 +52,7 @@ namespace HumaneSociety
                     RunUserMenus();
                     return;
                 case "5":
-                  //  CheckDefaultCategories();
+                    CheckCurrentCategories();
                     RunUserMenus();
                     return;
                 case "6":
@@ -74,6 +74,17 @@ namespace HumaneSociety
             }
         }
 
+        //Displays all the current Categories
+        private void CheckCurrentCategories()
+        {
+            Console.Clear();
+            List<Category> currentCategories = Query.GetAllCategories();
+            foreach(Category category in currentCategories)
+            {
+                UserInterface.DisplayUserOptions($"Category ID - {category.CategoryId} is for Animal Type - {category.Name}");
+            }
+            Console.ReadLine();
+        }
         //Method created to check and keep track of animal housing as per User Story
         private void CheckHousing()
         {
@@ -110,6 +121,7 @@ namespace HumaneSociety
                 return;
             }
         }
+        //Assign a room to an animal
         private void AssignRoom(int number)
         {
             Console.Clear();
