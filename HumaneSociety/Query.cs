@@ -319,7 +319,9 @@ namespace HumaneSociety
         // USERINTERFACE CLASS //
         public static Room GetRoom(int id)
         {
-            throw new Exception();
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var room = db.Rooms.Where(r => r.AnimalId == id).Single();
+            return room;
         }
 
         //Query Made for check housing method
@@ -338,5 +340,23 @@ namespace HumaneSociety
             return availableRooms;
         }
 
+        //Query to Assign or update room
+        public static void UpdateRoom(int number, int id)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Room roomFromDb = db.Rooms.Where(r => r.RoomNumber == number).Single();
+            if(roomFromDb.AnimalId != null)
+            {
+                if(UserInterface.GetBitData("Already Occupied! Do you still want to update?"))
+                {
+                    roomFromDb.AnimalId = id;
+                }
+            }
+            else
+            {
+                roomFromDb.AnimalId = id;
+            }
+            db.SubmitChanges();
+        }
     }
 }

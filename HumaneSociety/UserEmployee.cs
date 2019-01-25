@@ -64,7 +64,7 @@ namespace HumaneSociety
                     RunUserMenus();
                     return;
                 case "8":
-                   // AssignRoom();
+                    ManageHousing();
                     RunUserMenus();
                     return;
                 default:
@@ -92,6 +92,31 @@ namespace HumaneSociety
                 UserInterface.DisplayUserOptions($"Room No - {room.RoomNumber} - Available");
             }
             Console.ReadLine();
+        }
+
+        //Manages the animal housing - assign/updates rooms
+        private void ManageHousing()
+        {
+            CheckHousing();
+            if(UserInterface.GetBitData("Would you like to Assign a room to an Animal"))
+            {
+                UserInterface.DisplayUserOptions("Enter the available room number you want to assign");
+                int roomNumber = UserInterface.GetIntegerData();
+                AssignRoom(roomNumber);
+                CheckHousing();
+            }
+            else
+            {
+                return;
+            }
+        }
+        private void AssignRoom(int number)
+        {
+            Console.Clear();
+            UserInterface.DisplayUserOptions("Enter the Animal's ID you want to put in the room.");
+            int animalID = UserInterface.GetIntegerData();
+            Query.UpdateRoom(number, animalID);
+            UserInterface.DisplayUserOptions($"Room Number {number} assigned");
         }
         private void CheckAdoptions()
         {

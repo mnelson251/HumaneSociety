@@ -12,7 +12,7 @@ namespace HumaneSociety
         {
 
             PointOfEntry.Run();
-            //Query.GetAnimalHousing();
+            
         }
     }
 }
