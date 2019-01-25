@@ -358,5 +358,14 @@ namespace HumaneSociety
             }
             db.SubmitChanges();
         }
+
+        //Queries for Categorization UserStory
+        //Getting the Catgories in a list
+        public static List<Category> GetAllCategories()
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var allCategories = db.Categories.ToList();
+            return allCategories;
+        }
     }
 }

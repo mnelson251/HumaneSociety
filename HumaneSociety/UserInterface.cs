@@ -181,7 +181,6 @@ namespace HumaneSociety
                 }
                 else
                 {
-                    isSearching = false;
                     searchParameters = EnterSearchCriteria(searchParameters, input);
                 }
             }
