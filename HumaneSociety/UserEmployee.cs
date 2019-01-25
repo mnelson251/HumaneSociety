@@ -51,6 +51,22 @@ namespace HumaneSociety
                     CheckAdoptions();
                     RunUserMenus();
                     return;
+                case "5":
+                  //  CheckDefaultCategories();
+                    RunUserMenus();
+                    return;
+                case "6":
+                   // CreateCategory();
+                    RunUserMenus();
+                    return;
+                case "7":
+                    CheckHousing();
+                    RunUserMenus();
+                    return;
+                case "8":
+                   // AssignRoom();
+                    RunUserMenus();
+                    return;
                 default:
                     UserInterface.DisplayUserOptions("Input not accepted please try again");
                     RunUserMenus();
@@ -58,6 +74,25 @@ namespace HumaneSociety
             }
         }
 
+        //Method created to check and keep track of animal housing as per User Story
+        private void CheckHousing()
+        {
+            Console.Clear();
+            List<Room> roomsInfo;
+            List<Room> roomsAvailable;
+            roomsInfo = Query.GetAnimalHousing();
+            roomsAvailable = Query.GetAvailableRooms();
+            foreach(Room room in roomsInfo)
+            {
+                UserInterface.DisplayUserOptions($"Room No - {room.RoomNumber} - {room.Animal.Name} ");
+            }
+            UserInterface.DisplayUserOptions("Available Rooms");
+            foreach(Room room in roomsAvailable)
+            {
+                UserInterface.DisplayUserOptions($"Room No - {room.RoomNumber} - Available");
+            }
+            Console.ReadLine();
+        }
         private void CheckAdoptions()
         {
             Console.Clear();
@@ -114,7 +149,7 @@ namespace HumaneSociety
                 UserInterface.DisplayUserOptions("***ANIMAL INFOMATION***");
                 UserInterface.DisplayAnimals(animals);
                 Console.ReadLine();
-                return;
+                //return;
             }
             if(animals.Count == 0)
             {

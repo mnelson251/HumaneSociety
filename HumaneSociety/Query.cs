@@ -322,5 +322,21 @@ namespace HumaneSociety
             throw new Exception();
         }
 
+        //Query Made for check housing method
+        public static List<Room> GetAnimalHousing()
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var bookedRooms = db.Rooms.Where(c => c.AnimalId != null).ToList();
+            return bookedRooms;
+        }
+
+        //Query Made to get Available rooms
+        public static List<Room> GetAvailableRooms()
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var availableRooms = db.Rooms.Where(c => c.AnimalId == null).ToList();
+            return availableRooms;
+        }
+
     }
 }
