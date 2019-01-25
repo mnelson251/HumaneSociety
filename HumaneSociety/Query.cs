@@ -255,12 +255,14 @@ namespace HumaneSociety
         // Matthew
         public static List<AnimalShot> GetShots(Animal animal)
         {
-            throw new Exception();
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var AnimalShotinfo = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId).ToList();
+            return AnimalShotinfo;
         }
         //Matthew
         public static void UpdateShot(string word, Animal animal)
         {
-            throw new Exception();
+           //insert shots into table
         }
         //Kenwar
         public static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
