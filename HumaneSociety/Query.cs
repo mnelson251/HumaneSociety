@@ -280,14 +280,62 @@ namespace HumaneSociety
         //Kenwar
         public static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
         {
-            throw new Exception();
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var animalFromDb = db.Animals.Where(c => c.AnimalId == animal.AnimalId).Single();
+            int userInput = updates.Keys.ElementAt(0);
+            string updatedValue = updates.Values.ElementAt(0);
+            switch(userInput)
+            {
+                case 1:
+                    animalFromDb.CategoryId = Int32.Parse(updatedValue);
+                    break;
+                case 2:
+                    animalFromDb.Name = updatedValue;
+                    break;
+                case 3:
+                    animalFromDb.Age = Int32.Parse(updatedValue);
+                    break;
+                case 4:
+                    animalFromDb.Demeanor = updatedValue;
+                    break;
+                case 5:
+                    ToggleBehaviour(animalFromDb.KidFriendly);
+                    break;
+                case 6:
+                    ToggleBehaviour(animalFromDb.PetFriendly);
+                    break;
+                case 7:
+                    animalFromDb.Weight = Int32.Parse(updatedValue);
+                    break;
+                case 8:
+                    animalFromDb.AnimalId = Int32.Parse(updatedValue);
+                    break;
+                case 9: //Not done yet
+                    animalFromDb.AnimalId = Int32.Parse(updatedValue);
+                    break;
+
+            }
+            db.SubmitChanges();
+            
         }
+
+
+        public static bool ToggleBehaviour(bool? input)
+        {
+            if(input??false)
+            {
+                return true;
+            }
+            return false;
+        }
+
         //Matthew
+
         public static void RemoveAnimal(Animal animal)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             var animalsToBeRemoved = db.Animals.Where(d => d.Name == animal.Name).ToList();
-            
+
             
             ResetRoomFields(animal);
 
@@ -297,6 +345,7 @@ namespace HumaneSociety
             }
 
             if (db.Adoptions.Where(a=>a.AnimalId == animal.AnimalId) != null) //^^^^same as above
+
             {
                 RemoveAdoptionFields(animal);
             }
@@ -366,7 +415,7 @@ namespace HumaneSociety
             db.SubmitChanges();
         }
 
-       
+
 
         // ADMIN CLASS //
 
