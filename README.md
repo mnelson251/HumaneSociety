@@ -1,2 +1,3 @@
 # HumaneSociety
-Project in C# _ data base
+Project in SQL - LINQ in C#
+Create DataBase Queries in C# with LINQ
