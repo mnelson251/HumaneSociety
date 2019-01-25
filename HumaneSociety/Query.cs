@@ -414,5 +414,29 @@ namespace HumaneSociety
             var allCategories = db.Categories.ToList();
             return allCategories;
         }
+
+        //Create a New category
+        public static void AddCategory(Category category)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            db.Categories.InsertOnSubmit(category);
+            db.SubmitChanges();
+
+        }
+
+        //Check to make sure category doesn't exist already
+        public static bool CheckCategoryName(string name)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            try
+            {
+                Category categoryFromDb = db.Categories.Where(c => c.Name == name).Single();
+                return true;
+            }
+            catch(InvalidOperationException)
+            {
+                return false;
+            }
+        }
     }
 }
