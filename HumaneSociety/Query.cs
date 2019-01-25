@@ -269,9 +269,40 @@ namespace HumaneSociety
 
         public static void RemoveAnimal(Animal animal)
         {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var animalsToBeRemoved = db.Animals.Where(d => d.Name == animal.Name).ToList();
+            var roomStatus = GetAnimalHousing(); // list of rooms with animals in them
 
-            throw new Exception();
+            ResetRoomFields(animal);
+            //RemoveAdoptionFields(animal);
+            //RemoveAnimalShotFields(animal);
 
+            db.Animals.DeleteAllOnSubmit(animalsToBeRemoved);
+            db.SubmitChanges();
+        }
+
+        public static void ResetRoomFields(Animal animal)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var roomsToReset = db.Rooms.Where(r => r.AnimalId == animal.AnimalId).SingleOrDefault();
+            roomsToReset.AnimalId = null;
+            db.SubmitChanges();
+        }
+
+        public static void RemoveAdoptionFields(Animal animal)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var adoptionsToReset = db.Adoptions.Where(a => a.AnimalId == animal.AnimalId).SingleOrDefault();
+            db.Adoptions.DeleteOnSubmit(adoptionsToReset);
+            db.SubmitChanges();
+        }
+
+        public static void RemoveAnimalShotFields(Animal animal)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var animalShotsToReset = db.AnimalShots.Where(a => a.AnimalId == animal.AnimalId).SingleOrDefault();
+            db.AnimalShots.DeleteOnSubmit(animalShotsToReset);
+            db.SubmitChanges();
         }
 
         //DONE
@@ -284,6 +315,7 @@ namespace HumaneSociety
             var category = db.Categories.Where(c => c.CategoryId == animalTypeId).Single();
             return category.CategoryId;
         }
+
 
         //DONE
         public static int GetDietPlanId()

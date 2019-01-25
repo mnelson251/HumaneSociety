@@ -174,7 +174,6 @@ namespace HumaneSociety
                 UserInterface.DisplayUserOptions("***ANIMAL INFOMATION***");
                 UserInterface.DisplayAnimals(animals);
                 Console.ReadLine();
-                //return;
             }
             if(animals.Count == 0)
             {

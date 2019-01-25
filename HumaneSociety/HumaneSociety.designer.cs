@@ -2270,7 +2270,7 @@ namespace HumaneSociety
 				{
 					if (this._Animal.HasLoadedOrAssignedValue)
 					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+						//throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
 					this.OnAnimalIdChanging(value);
 					this.SendPropertyChanging();
