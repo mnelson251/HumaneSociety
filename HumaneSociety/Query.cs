@@ -262,7 +262,20 @@ namespace HumaneSociety
         //Matthew
         public static void UpdateShot(string word, Animal animal)
         {
-           //insert shots into table
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+
+            var shotUpdateAnimal = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId && s.Shot.Name == word).ToList();
+            
+            if (shotUpdateAnimal == null)
+            {
+               // db.AnimalShots.Select();
+            }
+
+                db.AnimalShots.InsertAllOnSubmit(shotUpdateAnimal);
+                db.SubmitChanges();
+          
+            
+            
         }
         //Kenwar
         public static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
