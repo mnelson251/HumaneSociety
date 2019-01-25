@@ -216,9 +216,6 @@ namespace HumaneSociety
                     searchParameters.Add(8, UserInterface.GetIntegerData("ID", "the animal's").ToString());
                     return searchParameters;
                 case "9":
-                    searchParameters.Add(9, UserInterface.GetStringData("shot administred", "the").ToString());
-                    return searchParameters;
-                case "10":
                     return searchParameters;
                 default:
                     UserInterface.DisplayUserOptions("Input not recognized please try agian");

@@ -274,7 +274,8 @@ namespace HumaneSociety
             switch(userInput)
             {
                 case 1:
-                    animalFromDb.CategoryId = Int32.Parse(updatedValue);
+                    var updatedCategory = db.Categories.Where(c => c.Name == updatedValue).Single();
+                    animalFromDb.CategoryId = updatedCategory.CategoryId;
                     break;
                 case 2:
                     animalFromDb.Name = updatedValue;
