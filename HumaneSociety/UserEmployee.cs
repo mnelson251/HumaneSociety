@@ -289,19 +289,19 @@ namespace HumaneSociety
             {
                 updates = new Dictionary<int, string>();
             }
-            List<string> options = new List<string>() { "Select Updates: (Enter number and choose finished when finished)", "1. Category", "2. Name", "3. Age", "4. Demeanor", "5. Kid friendly", "6. Pet friendly", "7. Weight", "8. Finished" };
-            UserInterface.DisplayUserOptions(options);
-            string input = UserInterface.GetUserInput();
-            
-            if (input.ToLower() == "9" || input.ToLower() == "finished")
+            string input;
+            List<string> options = new List<string>() { "Select Updates: (Enter number and choose finished when finished)", "1. Category", "2. Name", "3. Age", "4. Demeanor", "5. Kid friendly", "6. Pet friendly", "7. Weight", "8. ID", "9. Shot", "10. Finished" };
+            do
             {
-                Query.EnterAnimalUpdate(animal, updates);
-            }
-            else
-            {
+                Console.Clear();
+                UserInterface.DisplayUserOptions(options);
+                input = UserInterface.GetUserInput();
                 updates = UserInterface.EnterSearchCriteria(updates, input);
-                UpdateAnimal(animal);
             }
+            while (input != "10");
+            Query.EnterAnimalUpdate(animal, updates);
+            UserInterface.DisplayUserOptions("Animal Updated Successfully");
+            UserInterface.GetUserInput();
         }
 
         private void CheckAnimalStatus(int iD)
@@ -412,7 +412,7 @@ namespace HumaneSociety
         {
             GetUserName();
             GetPassword();
-            Query.AddUsernameAndPassword(employee);
+            Query.AddUserNameAndPassword(employee);
         }
 
         private void GetPassword()
