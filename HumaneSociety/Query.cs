@@ -150,7 +150,7 @@ namespace HumaneSociety
                 case 7:
                     var weightSearchResult = db.Animals.Where(a => a.Weight == Int32.Parse(dictionaryValue)).ToList();
                     return weightSearchResult;
-                case 9:
+                case 8:
                     var idSearchResult = db.Animals.Where(a => a.AnimalId == Int32.Parse(dictionaryValue)).ToList();
                     return idSearchResult;
                 default:
@@ -247,26 +247,27 @@ namespace HumaneSociety
             return pendingAdoptions;
         }
 
+        //Kenwar
         public static void UpdateAdoption(bool b, Adoption adoption)
         {
             throw new Exception();
         }
-
+        // Matthew
         public static List<AnimalShot> GetShots(Animal animal)
         {
             throw new Exception();
         }
-
+        //Matthew
         public static void UpdateShot(string word, Animal animal)
         {
             throw new Exception();
         }
-
+        //Kenwar
         public static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
         {
             throw new Exception();
         }
-
+        //Matthew
         public static void RemoveAnimal(Animal animal)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
@@ -288,7 +289,7 @@ namespace HumaneSociety
             db.Animals.DeleteAllOnSubmit(animalsToBeRemoved);
             db.SubmitChanges();
         }
-
+        //Matthew
         public static void ResetRoomFields(Animal animal)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
@@ -296,7 +297,7 @@ namespace HumaneSociety
             roomsToReset.AnimalId = null;
             db.SubmitChanges();
         }
-
+        //Matthew
         public static void RemoveAdoptionFields(Animal animal)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
@@ -307,7 +308,7 @@ namespace HumaneSociety
                 db.SubmitChanges();
             }
         }
-
+        //Matthew
         public static void RemoveAnimalShotFields(Animal animal)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
@@ -354,6 +355,7 @@ namespace HumaneSociety
 
         // ADMIN CLASS //
 
+            //Hold until MONDAY - look into how to do
         public static void RunEmployeeQueries(Employee employee, string word)
         {
             throw new Exception();
