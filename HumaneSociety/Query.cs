@@ -157,8 +157,6 @@ namespace HumaneSociety
                     List<Animal> defaultReturn = new List<Animal>();
                     return defaultReturn;
             }
-            
-            
         }
 
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
@@ -311,10 +309,10 @@ namespace HumaneSociety
                     animalFromDb.Demeanor = updatedValue;
                     break;
                 case 6:
-                    ToggleBehaviour(animalFromDb.KidFriendly);
+                    animalFromDb.KidFriendly = ToggleBehaviour(animalFromDb.KidFriendly);
                     break;
                 case 7:
-                    ToggleBehaviour(animalFromDb.PetFriendly);
+                    animalFromDb.PetFriendly = ToggleBehaviour(animalFromDb.PetFriendly);
                     break;
                 case 8:
                     animalFromDb.Weight = Int32.Parse(updatedValue);
@@ -343,9 +341,9 @@ namespace HumaneSociety
         {
             if(input??false)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
 
         //Matthew
