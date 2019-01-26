@@ -290,7 +290,7 @@ namespace HumaneSociety
                 updates = new Dictionary<int, string>();
             }
             string input;
-            List<string> options = new List<string>() { "Select Updates: (Enter number and choose finished when finished)", "1. Category", "2. Name", "3. Age", "4. Demeanor", "5. Kid friendly", "6. Pet friendly", "7. Weight", "8. ID", "9. Shot", "10. Finished" };
+            List<string> options = new List<string>() { "Select Updates: (Enter number and choose finished when finished)", "1. Category", "2. Name", "3. Age", "4. Demeanor", "5. Kid friendly", "6. Pet friendly", "7. Weight", "8. ID", "9. Finished" };
             do
             {
                 Console.Clear();
@@ -298,7 +298,7 @@ namespace HumaneSociety
                 input = UserInterface.GetUserInput();
                 updates = UserInterface.EnterSearchCriteria(updates, input);
             }
-            while (input != "10");
+            while (input != "9");
             Query.EnterAnimalUpdate(animal, updates);
             UserInterface.DisplayUserOptions("Animal Updated Successfully");
             UserInterface.GetUserInput();
