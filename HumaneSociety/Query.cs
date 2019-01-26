@@ -283,48 +283,51 @@ namespace HumaneSociety
 
             
         }
-        //Kanwar
+        //Done
         public static Animal EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             var animalFromDb = db.Animals.Where(c => c.AnimalId == animal.AnimalId).Single();
-            int userInput = updates.Keys.ElementAt(0);
-            string updatedValue = updates.Values.ElementAt(0);
-            switch(userInput)
+            for(int i = 0; i < updates.Count; i++)
             {
-                case 1:
-                    var updatedCategory = db.Categories.Where(c => c.Name == updatedValue).Single();
-                    animalFromDb.CategoryId = updatedCategory.CategoryId;
-                    break;
-                case 2:
-                    animalFromDb.Name = updatedValue;
-                    break;
-                case 3:
-                    animalFromDb.Age = Int32.Parse(updatedValue);
-                    break;
-                case 4:
-                    animalFromDb.Gender = updatedValue;
-                    break;
-                case 5:
-                    animalFromDb.Demeanor = updatedValue;
-                    break;
-                case 6:
-                    animalFromDb.KidFriendly = ToggleBehaviour(animalFromDb.KidFriendly);
-                    break;
-                case 7:
-                    animalFromDb.PetFriendly = ToggleBehaviour(animalFromDb.PetFriendly);
-                    break;
-                case 8:
-                    animalFromDb.Weight = Int32.Parse(updatedValue);
-                    break;
-                case 9:
-                    animalFromDb.AnimalId = Int32.Parse(updatedValue);
-                    break;
-                case 10: //Not done yet
-                    animalFromDb.AnimalId = Int32.Parse(updatedValue);
-                    break;
-
+                int userInput = updates.Keys.ElementAt(i);
+                string updatedValue = updates.Values.ElementAt(i);
+                switch (userInput)
+                {
+                    case 1:
+                        var updatedCategory = db.Categories.Where(c => c.Name == updatedValue).Single();
+                        animalFromDb.CategoryId = updatedCategory.CategoryId;
+                        break;
+                    case 2:
+                        animalFromDb.Name = updatedValue;
+                        break;
+                    case 3:
+                        animalFromDb.Age = Int32.Parse(updatedValue);
+                        break;
+                    case 4:
+                        animalFromDb.Gender = updatedValue;
+                        break;
+                    case 5:
+                        animalFromDb.Demeanor = updatedValue;
+                        break;
+                    case 6:
+                        animalFromDb.KidFriendly = ToggleBehaviour(animalFromDb.KidFriendly);
+                        break;
+                    case 7:
+                        animalFromDb.PetFriendly = ToggleBehaviour(animalFromDb.PetFriendly);
+                        break;
+                    case 8:
+                        animalFromDb.Weight = Int32.Parse(updatedValue);
+                        break;
+                    case 9:
+                        animalFromDb.AnimalId = Int32.Parse(updatedValue);
+                        break;
+                    case 10: //Not done yet
+                        animalFromDb.AnimalId = Int32.Parse(updatedValue);
+                        break;
+                }
             }
+            
             db.SubmitChanges();
             return animalFromDb;
         }
