@@ -222,6 +222,7 @@ namespace HumaneSociety
             bool isFinished = false;
             Console.Clear();
             while(!isFinished){
+                animal =  Query.GetUpdatedAnimal(animal);
                 List<string> options = new List<string>() { "Animal found:", animal.Name, animal.Category.Name, "Would you like to:", "1. Get Info", "2. Update Info", "3. Check shots", "4. Return" };
                 UserInterface.DisplayUserOptions(options);
                 int input = UserInterface.GetIntegerData();
@@ -290,7 +291,7 @@ namespace HumaneSociety
                 updates = new Dictionary<int, string>();
             }
             string input;
-            List<string> options = new List<string>() { "Select Updates: (Enter number and choose finished when finished)", "1. Category", "2. Name", "3. Age", "4. Demeanor", "5. Kid friendly", "6. Pet friendly", "7. Weight", "8. ID", "9. Finished" };
+            List<string> options = new List<string>() { "Select Updates: (Enter number and choose finished when finished)", "1. Category", "2. Name", "3. Age", "4. Gender", "5. Demeanor", "6. Kid friendly", "7. Pet friendly", "8. Weight", "9. ID", "10. Finished" };
             do
             {
                 Console.Clear();
@@ -298,7 +299,7 @@ namespace HumaneSociety
                 input = UserInterface.GetUserInput();
                 updates = UserInterface.EnterSearchCriteria(updates, input);
             }
-            while (input != "9");
+            while (input != "10");
             Query.EnterAnimalUpdate(animal, updates);
             UserInterface.DisplayUserOptions("Animal Updated Successfully");
             UserInterface.GetUserInput();
@@ -358,6 +359,7 @@ namespace HumaneSociety
             animal.KidFriendly = UserInterface.GetBitData("the animal", "child friendly");
             animal.PetFriendly = UserInterface.GetBitData("the animal", "pet friendly");
             animal.Weight = UserInterface.GetIntegerData("the animal", "the weight of the");
+            animal.Gender = UserInterface.GetStringData("gender", "the animal's");
             animal.DietPlanId = Query.GetDietPlanId();
             Query.AddAnimal(animal);
         }

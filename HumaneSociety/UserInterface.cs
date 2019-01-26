@@ -201,21 +201,24 @@ namespace HumaneSociety
                     searchParameters.Add(3, UserInterface.GetIntegerData("age", "the animal's").ToString());
                     return searchParameters;
                 case "4":
-                    searchParameters.Add(4, UserInterface.GetStringData("demeanor", "the animal's"));
+                    searchParameters.Add(4, UserInterface.GetStringData("gender", "the animal's"));
                     return searchParameters;
                 case "5":
-                    searchParameters.Add(5, UserInterface.GetBitData("the animal", "kid friendly").ToString());
+                    searchParameters.Add(4, UserInterface.GetStringData("demeanor", "the animal's"));
                     return searchParameters;
                 case "6":
-                    searchParameters.Add(6, UserInterface.GetBitData("the animal", "pet friendly").ToString());
+                    searchParameters.Add(5, UserInterface.GetBitData("the animal", "kid friendly").ToString());
                     return searchParameters;
                 case "7":
-                    searchParameters.Add(7, UserInterface.GetIntegerData("weight", "the animal's").ToString());
+                    searchParameters.Add(6, UserInterface.GetBitData("the animal", "pet friendly").ToString());
                     return searchParameters;
                 case "8":
-                    searchParameters.Add(8, UserInterface.GetIntegerData("ID", "the animal's").ToString());
+                    searchParameters.Add(7, UserInterface.GetIntegerData("weight", "the animal's").ToString());
                     return searchParameters;
                 case "9":
+                    searchParameters.Add(8, UserInterface.GetIntegerData("ID", "the animal's").ToString());
+                    return searchParameters;
+                case "10":
                     return searchParameters;
                 default:
                     UserInterface.DisplayUserOptions("Input not recognized please try agian");

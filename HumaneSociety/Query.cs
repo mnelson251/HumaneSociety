@@ -277,8 +277,8 @@ namespace HumaneSociety
             
             
         }
-        //Kenwar
-        public static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
+        //Kanwar
+        public static Animal EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             var animalFromDb = db.Animals.Where(c => c.AnimalId == animal.AnimalId).Single();
@@ -297,29 +297,39 @@ namespace HumaneSociety
                     animalFromDb.Age = Int32.Parse(updatedValue);
                     break;
                 case 4:
-                    animalFromDb.Demeanor = updatedValue;
+                    animalFromDb.Gender = updatedValue;
                     break;
                 case 5:
-                    ToggleBehaviour(animalFromDb.KidFriendly);
+                    animalFromDb.Demeanor = updatedValue;
                     break;
                 case 6:
-                    ToggleBehaviour(animalFromDb.PetFriendly);
+                    ToggleBehaviour(animalFromDb.KidFriendly);
                     break;
                 case 7:
-                    animalFromDb.Weight = Int32.Parse(updatedValue);
+                    ToggleBehaviour(animalFromDb.PetFriendly);
                     break;
                 case 8:
+                    animalFromDb.Weight = Int32.Parse(updatedValue);
+                    break;
+                case 9:
                     animalFromDb.AnimalId = Int32.Parse(updatedValue);
                     break;
-                case 9: //Not done yet
+                case 10: //Not done yet
                     animalFromDb.AnimalId = Int32.Parse(updatedValue);
                     break;
 
             }
             db.SubmitChanges();
-            
+            return animalFromDb;
         }
 
+        //Helper Query to fetch the updated animal in the function recursiveness
+        public static Animal GetUpdatedAnimal(Animal animal)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var updatedAnimal = db.Animals.Where(a => a.AnimalId == animal.AnimalId).Single();
+            return updatedAnimal;
+        }
 
         public static bool ToggleBehaviour(bool? input)
         {
