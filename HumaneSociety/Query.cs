@@ -264,16 +264,15 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
 
-            var shotUpdateAnimal = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId && s.Shot.Name == word).ToList();
-            
-            if (shotUpdateAnimal == null)
+            var shotUpdateAnimal = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId).SingleOrDefault();
+            var shotUpdateShot = db.AnimalShots.Where(f => f.Shot.Name == word).SingleOrDefault();
+           
+            if (shotUpdateShot != null)
             {
-               // db.AnimalShots.Select();
-            }
-
-                db.AnimalShots.InsertAllOnSubmit(shotUpdateAnimal);
+                AnimalShot animalShot = new AnimalShot { AnimalId = animal.AnimalId, ShotId = shotUpdateShot.Shot.ShotId, DateReceived = DateTime.Now };
+                db.AnimalShots.InsertOnSubmit(animalShot);
                 db.SubmitChanges();
-          
+            }
             
             
         }
