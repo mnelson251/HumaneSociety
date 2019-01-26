@@ -26,6 +26,7 @@ namespace HumaneSociety
         }
         protected override void RunUserMenus()
         {
+            Console.Clear();
             List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status",  "4. Approve Adoption" , "5. Check All Categories", "6. Make New Category",  "7. Check Housing", "8. Manage Housing"};
             UserInterface.DisplayUserOptions(options);
             string input = UserInterface.GetUserInput();
@@ -172,20 +173,29 @@ namespace HumaneSociety
             }
 
         }
-
+        
+        public void ApproveTransaction(Adoption adoption)
+        {
+            adoption.PaymentCollected = true;
+        }
         private void ApproveAdoption(Adoption adoption)
         {
             UserInterface.DisplayAnimalInfo(adoption.Animal);
             UserInterface.DisplayClientInfo(adoption.Client);
             UserInterface.DisplayUserOptions("Would you approve this adoption?");
+            
             if ((bool)UserInterface.GetBitData())
             {
+                ApproveTransaction(adoption);
                 Query.UpdateAdoption(true, adoption);
+                UserInterface.DisplayUserOptions("Adoption Approved");
+                UserInterface.GetUserInput();
             }
             else
             {
                 Query.UpdateAdoption(false, adoption);
             }
+            
         }
 
         private void CheckAnimalStatus()
