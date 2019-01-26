@@ -217,23 +217,37 @@ namespace HumaneSociety
         }
 
 
-        //Still some doubts on this one -- need to know a way to check/debug
+        //TODO
         public static void Adopt(Animal animal, Client client)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            Adoption adoption = db.Adoptions.Where(c => c.AnimalId == animal.AnimalId && c.ClientId == client.ClientId).Single();
-
-            adoption.AdoptionFee += 75;
-            if(adoption.PaymentCollected == true)
+            var adoptionFromDb = db.Adoptions.Where(a => a.AnimalId == animal.AnimalId).Single();
+            if(adoptionFromDb.ClientId == null)
             {
-                adoption.Animal.AdoptionStatus = "Adopted";
-                adoption.ApprovalStatus = "True";
-
+                adoptionFromDb.AdoptionFee = 75;
+                adoptionFromDb.ClientId = client.ClientId;
+                adoptionFromDb.ApprovalStatus = "pending";
+                adoptionFromDb.Animal.AdoptionStatus = "requested";
+                UserInterface.DisplayUserOptions("Adoption request sent we will hold $75 adoption fee until processed");
+                UserInterface.GetUserInput();
             }
-
+            else if(adoptionFromDb.ClientId == client.ClientId)
+            {
+                UserInterface.DisplayUserOptions("You've request for adoption is being processed. You will be notified once its approved.");
+                UserInterface.GetUserInput();
+            }
+            else
+            {
+                UserInterface.DisplayUserOptions("Already requested by someone else. Sorry !");
+                UserInterface.GetUserInput();
+            }
             db.SubmitChanges();
         }
         
+        public static void AddAdoption()
+        {
+
+        }
 
         // USER EMPLOYEE CLASS //
 
@@ -245,10 +259,24 @@ namespace HumaneSociety
             return pendingAdoptions;
         }
 
-        //Kenwar
+        //Done
         public static void UpdateAdoption(bool b, Adoption adoption)
         {
-            throw new Exception();
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var adoptionFromDb = db.Adoptions.Where(a => a.AdoptionId == adoption.AdoptionId).Single();
+            if (b)
+            {
+                adoptionFromDb.ApprovalStatus = "approved";
+                adoptionFromDb.Animal.AdoptionStatus = "adopted";
+            }
+            else
+            {
+                adoptionFromDb.ApprovalStatus = "denied";
+                adoptionFromDb.Animal.AdoptionStatus = "available";
+            }
+
+            db.SubmitChanges();
+            
         }
         // Matthew
         public static List<AnimalShot> GetShots(Animal animal)
