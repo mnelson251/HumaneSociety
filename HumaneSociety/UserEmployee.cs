@@ -27,7 +27,7 @@ namespace HumaneSociety
         protected override void RunUserMenus()
         {
             Console.Clear();
-            List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status",  "4. Approve Adoption" , "5. Check All Categories", "6. Make New Category",  "7. Check Housing", "8. Manage Housing", "9. Make New Diet-Plan"};
+            List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status",  "4. Approve Adoption" , "5. Check All Categories", "6. Make New Category",  "7. Check Housing", "8. Manage Housing", "9. Make New Diet-Plan", "10. Check All DietPlans"};
             UserInterface.DisplayUserOptions(options);
             string input = UserInterface.GetUserInput();
             RunUserInput(input);
@@ -71,6 +71,10 @@ namespace HumaneSociety
 
                 case "9":
                     CreateNewDietPlan();
+                    RunUserMenus();
+                    return;
+                case "10":
+                    CheckCurrentDietPlans();
                     RunUserMenus();
                     return;
                 default:
@@ -456,7 +460,7 @@ namespace HumaneSociety
 
         public static void CreateNewDietPlan()
         {
-            string newPlanName = UserInterface.GetStringData("type", "the new Diet-Plan");
+            string newPlanName = UserInterface.GetStringData("name", "the new Diet-Plan");
             string foodType = UserInterface.GetStringData("type", "the food");
             int foodAmount = UserInterface.GetIntegerData("in cups", "the amount of food");
             if (!Query.CheckDietPlanName(newPlanName.Trim()))
@@ -473,6 +477,18 @@ namespace HumaneSociety
                 Console.ReadLine();
                 Console.Clear();
             }
+        }
+
+
+        private void CheckCurrentDietPlans()
+        {
+            Console.Clear();
+            List<DietPlan> currentDietPlans = Query.GetAllDietPlans();
+            foreach(DietPlan plan in currentDietPlans)
+            {
+                UserInterface.DisplayUserOptions($"DietPlan - Name of Plan is {plan.Name}. Type of Food is {plan.FoodType}.  This plan administers {plan.FoodAmountInCups} cups of food.");
+            }
+            Console.ReadLine();
         }
 
     }

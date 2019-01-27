@@ -569,5 +569,15 @@ namespace HumaneSociety
             }
 
         }
+
+        public static List<DietPlan> GetAllDietPlans()
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var allDietPlans = db.DietPlans.ToList();
+            return allDietPlans;
+
+
+        }
+
     }
 }
