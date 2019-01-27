@@ -27,7 +27,7 @@ namespace HumaneSociety
         protected override void RunUserMenus()
         {
             Console.Clear();
-            List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status",  "4. Approve Adoption" , "5. Check All Categories", "6. Make New Category",  "7. Check Housing", "8. Manage Housing"};
+            List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status",  "4. Approve Adoption" , "5. Check All Categories", "6. Make New Category",  "7. Check Housing", "8. Manage Housing", "9. Make New Diet-Plan"};
             UserInterface.DisplayUserOptions(options);
             string input = UserInterface.GetUserInput();
             RunUserInput(input);
@@ -66,6 +66,11 @@ namespace HumaneSociety
                     return;
                 case "8":
                     ManageHousing();
+                    RunUserMenus();
+                    return;
+
+                case "9":
+                    CreateNewDietPlan();
                     RunUserMenus();
                     return;
                 default:
@@ -448,5 +453,27 @@ namespace HumaneSociety
                 UserInterface.DisplayUserOptions("Username successful");
             }
         }
+
+        public static void CreateNewDietPlan()
+        {
+            string newPlanName = UserInterface.GetStringData("type", "the new Diet-Plan");
+            string foodType = UserInterface.GetStringData("type", "the food");
+            int foodAmount = UserInterface.GetIntegerData("in cups", "the amount of food");
+            if (!Query.CheckDietPlanName(newPlanName.Trim()))
+            {
+                DietPlan dietPlan = new DietPlan();
+                dietPlan.Name = newPlanName.Trim();
+                dietPlan.FoodType = foodType.Trim();
+                dietPlan.FoodAmountInCups = foodAmount;
+                Query.AddDietPlan(dietPlan);
+            }
+            else
+            {
+                Console.WriteLine("That Diet-Plan already Exists. Please check all diet-plans");
+                Console.ReadLine();
+                Console.Clear();
+            }
+        }
+
     }
 }

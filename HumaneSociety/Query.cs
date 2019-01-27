@@ -306,10 +306,7 @@ namespace HumaneSociety
                 AnimalShot animalShot = new AnimalShot { AnimalId = animal.AnimalId, ShotId = 6, DateReceived = DateTime.Now };
                 db.AnimalShots.InsertOnSubmit(animalShot);
                 db.SubmitChanges();  
-            }
-            
-
-            
+            }  
         }
         //Done
         public static Animal EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
@@ -443,6 +440,7 @@ namespace HumaneSociety
             return category.CategoryId;
         }
 
+       
 
         //DONE
         public static int GetDietPlanId()
@@ -534,6 +532,13 @@ namespace HumaneSociety
 
         }
 
+        public static void AddDietPlan(DietPlan dietplan)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            db.DietPlans.InsertOnSubmit(dietplan);
+            db.SubmitChanges();
+        }
+
         //Check to make sure category doesn't exist already
         public static bool CheckCategoryName(string name)
         {
@@ -547,6 +552,22 @@ namespace HumaneSociety
             {
                 return false;
             }
+        }
+
+        public static bool CheckDietPlanName(string name)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            try
+            {
+                DietPlan dietplanFromDB = db.DietPlans.Where(c => c.Name == name).Single();
+                return true;
+            }
+
+            catch (InvalidOperationException)
+            {
+                return false;
+            }
+
         }
     }
 }
