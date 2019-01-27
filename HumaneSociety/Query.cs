@@ -157,8 +157,6 @@ namespace HumaneSociety
                     List<Animal> defaultReturn = new List<Animal>();
                     return defaultReturn;
             }
-            
-            
         }
 
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
@@ -219,23 +217,37 @@ namespace HumaneSociety
         }
 
 
-        //Still some doubts on this one -- need to know a way to check/debug
+        //TODO
         public static void Adopt(Animal animal, Client client)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            Adoption adoption = db.Adoptions.Where(c => c.AnimalId == animal.AnimalId && c.ClientId == client.ClientId).Single();
-
-            adoption.AdoptionFee += 75;
-            if(adoption.PaymentCollected == true)
+            var adoptionFromDb = db.Adoptions.Where(a => a.AnimalId == animal.AnimalId).Single();
+            if(adoptionFromDb.ClientId == null)
             {
-                adoption.Animal.AdoptionStatus = "Adopted";
-                adoption.ApprovalStatus = "True";
-
+                adoptionFromDb.AdoptionFee = 75;
+                adoptionFromDb.ClientId = client.ClientId;
+                adoptionFromDb.ApprovalStatus = "pending";
+                adoptionFromDb.Animal.AdoptionStatus = "requested";
+                UserInterface.DisplayUserOptions("Adoption request sent we will hold $75 adoption fee until processed");
+                UserInterface.GetUserInput();
             }
-
+            else if(adoptionFromDb.ClientId == client.ClientId)
+            {
+                UserInterface.DisplayUserOptions("You've request for adoption is being processed. You will be notified once its approved.");
+                UserInterface.GetUserInput();
+            }
+            else
+            {
+                UserInterface.DisplayUserOptions("Already requested by someone else. Sorry !");
+                UserInterface.GetUserInput();
+            }
             db.SubmitChanges();
         }
         
+        public static void AddAdoption()
+        {
+
+        }
 
         // USER EMPLOYEE CLASS //
 
@@ -247,10 +259,24 @@ namespace HumaneSociety
             return pendingAdoptions;
         }
 
-        //Kenwar
+        //Done
         public static void UpdateAdoption(bool b, Adoption adoption)
         {
-            throw new Exception();
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var adoptionFromDb = db.Adoptions.Where(a => a.AdoptionId == adoption.AdoptionId).Single();
+            if (b)
+            {
+                adoptionFromDb.ApprovalStatus = "approved";
+                adoptionFromDb.Animal.AdoptionStatus = "adopted";
+            }
+            else
+            {
+                adoptionFromDb.ApprovalStatus = "denied";
+                adoptionFromDb.Animal.AdoptionStatus = "available";
+            }
+
+            db.SubmitChanges();
+            
         }
         // Matthew
         public static List<AnimalShot> GetShots(Animal animal)
@@ -285,57 +311,70 @@ namespace HumaneSociety
 
             
         }
-        //Kenwar
-        public static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
+        //Done
+        public static Animal EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             var animalFromDb = db.Animals.Where(c => c.AnimalId == animal.AnimalId).Single();
-            int userInput = updates.Keys.ElementAt(0);
-            string updatedValue = updates.Values.ElementAt(0);
-            switch(userInput)
+            for(int i = 0; i < updates.Count; i++)
             {
-                case 1:
-                    var updatedCategory = db.Categories.Where(c => c.Name == updatedValue).Single();
-                    animalFromDb.CategoryId = updatedCategory.CategoryId;
-                    break;
-                case 2:
-                    animalFromDb.Name = updatedValue;
-                    break;
-                case 3:
-                    animalFromDb.Age = Int32.Parse(updatedValue);
-                    break;
-                case 4:
-                    animalFromDb.Demeanor = updatedValue;
-                    break;
-                case 5:
-                    ToggleBehaviour(animalFromDb.KidFriendly);
-                    break;
-                case 6:
-                    ToggleBehaviour(animalFromDb.PetFriendly);
-                    break;
-                case 7:
-                    animalFromDb.Weight = Int32.Parse(updatedValue);
-                    break;
-                case 8:
-                    animalFromDb.AnimalId = Int32.Parse(updatedValue);
-                    break;
-                case 9: //Not done yet
-                    animalFromDb.AnimalId = Int32.Parse(updatedValue);
-                    break;
-
+                int userInput = updates.Keys.ElementAt(i);
+                string updatedValue = updates.Values.ElementAt(i);
+                switch (userInput)
+                {
+                    case 1:
+                        var updatedCategory = db.Categories.Where(c => c.Name == updatedValue).Single();
+                        animalFromDb.CategoryId = updatedCategory.CategoryId;
+                        break;
+                    case 2:
+                        animalFromDb.Name = updatedValue;
+                        break;
+                    case 3:
+                        animalFromDb.Age = Int32.Parse(updatedValue);
+                        break;
+                    case 4:
+                        animalFromDb.Gender = updatedValue;
+                        break;
+                    case 5:
+                        animalFromDb.Demeanor = updatedValue;
+                        break;
+                    case 6:
+                        animalFromDb.KidFriendly = ToggleBehaviour(animalFromDb.KidFriendly);
+                        break;
+                    case 7:
+                        animalFromDb.PetFriendly = ToggleBehaviour(animalFromDb.PetFriendly);
+                        break;
+                    case 8:
+                        animalFromDb.Weight = Int32.Parse(updatedValue);
+                        break;
+                    case 9:
+                        animalFromDb.AnimalId = Int32.Parse(updatedValue);
+                        break;
+                    case 10: //Not done yet
+                        animalFromDb.AnimalId = Int32.Parse(updatedValue);
+                        break;
+                }
             }
-            db.SubmitChanges();
             
+            db.SubmitChanges();
+            return animalFromDb;
         }
 
+        //Helper Query to fetch the updated animal in the function recursiveness
+        public static Animal GetUpdatedAnimal(Animal animal)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var updatedAnimal = db.Animals.Where(a => a.AnimalId == animal.AnimalId).Single();
+            return updatedAnimal;
+        }
 
         public static bool ToggleBehaviour(bool? input)
         {
             if(input??false)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
 
         //Matthew

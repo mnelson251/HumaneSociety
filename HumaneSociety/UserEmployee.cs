@@ -26,6 +26,7 @@ namespace HumaneSociety
         }
         protected override void RunUserMenus()
         {
+            Console.Clear();
             List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status",  "4. Approve Adoption" , "5. Check All Categories", "6. Make New Category",  "7. Check Housing", "8. Manage Housing"};
             UserInterface.DisplayUserOptions(options);
             string input = UserInterface.GetUserInput();
@@ -157,12 +158,12 @@ namespace HumaneSociety
             Console.Clear();
             List<string> adoptionInfo = new List<string>();
             int counter = 1;
-            var adoptions = Query.GetPendingAdoptions().ToList();
+            var adoptions = Query.GetPendingAdoptions();
             if(adoptions.Count > 0)
             {
                 foreach(Adoption adoption in adoptions)
                 {
-                    adoptionInfo.Add($"{counter}. {adoption.Client.FirstName} {adoption.Client.LastName}, {adoption.Animal.Name} {adoption.Animal.Category}");
+                    adoptionInfo.Add($"{counter}. {adoption.Client.FirstName} {adoption.Client.LastName}, {adoption.Animal.Name} {adoption.Animal.Category.Name}");
                     counter++;
                 }
                 UserInterface.DisplayUserOptions(adoptionInfo);
@@ -172,20 +173,29 @@ namespace HumaneSociety
             }
 
         }
-
+        
+        public void ApproveTransaction(Adoption adoption)
+        {
+            adoption.PaymentCollected = true;
+        }
         private void ApproveAdoption(Adoption adoption)
         {
             UserInterface.DisplayAnimalInfo(adoption.Animal);
             UserInterface.DisplayClientInfo(adoption.Client);
             UserInterface.DisplayUserOptions("Would you approve this adoption?");
+            
             if ((bool)UserInterface.GetBitData())
             {
+                ApproveTransaction(adoption);
                 Query.UpdateAdoption(true, adoption);
+                UserInterface.DisplayUserOptions("Adoption Approved");
+                UserInterface.GetUserInput();
             }
             else
             {
                 Query.UpdateAdoption(false, adoption);
             }
+            
         }
 
         private void CheckAnimalStatus()
@@ -222,6 +232,7 @@ namespace HumaneSociety
             bool isFinished = false;
             Console.Clear();
             while(!isFinished){
+                animal =  Query.GetUpdatedAnimal(animal);
                 List<string> options = new List<string>() { "Animal found:", animal.Name, animal.Category.Name, "Would you like to:", "1. Get Info", "2. Update Info", "3. Check shots", "4. Return" };
                 UserInterface.DisplayUserOptions(options);
                 int input = UserInterface.GetIntegerData();
@@ -290,7 +301,7 @@ namespace HumaneSociety
                 updates = new Dictionary<int, string>();
             }
             string input;
-            List<string> options = new List<string>() { "Select Updates: (Enter number and choose finished when finished)", "1. Category", "2. Name", "3. Age", "4. Demeanor", "5. Kid friendly", "6. Pet friendly", "7. Weight", "8. ID", "9. Finished" };
+            List<string> options = new List<string>() { "Select Updates: (Enter number and choose finished when finished)", "1. Category", "2. Name", "3. Age", "4. Gender", "5. Demeanor", "6. Kid friendly", "7. Pet friendly", "8. Weight", "9. ID", "10. Finished" };
             do
             {
                 Console.Clear();
@@ -298,7 +309,7 @@ namespace HumaneSociety
                 input = UserInterface.GetUserInput();
                 updates = UserInterface.EnterSearchCriteria(updates, input);
             }
-            while (input != "9");
+            while (input != "10");
             Query.EnterAnimalUpdate(animal, updates);
             UserInterface.DisplayUserOptions("Animal Updated Successfully");
             UserInterface.GetUserInput();
@@ -358,6 +369,7 @@ namespace HumaneSociety
             animal.KidFriendly = UserInterface.GetBitData("the animal", "child friendly");
             animal.PetFriendly = UserInterface.GetBitData("the animal", "pet friendly");
             animal.Weight = UserInterface.GetIntegerData("the animal", "the weight of the");
+            animal.Gender = UserInterface.GetStringData("gender", "the animal's");
             animal.DietPlanId = Query.GetDietPlanId();
             Query.AddAnimal(animal);
         }
