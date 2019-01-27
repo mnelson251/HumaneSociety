@@ -265,21 +265,21 @@ namespace HumaneSociety
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
 
             var shotUpdateAnimal = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId).SingleOrDefault();
-            var shotUpdateShot = db.AnimalShots.Where(f => f.Shot.Name == word).ToArray();
-            var shotz = shotUpdateShot[0];
+            var shotUpdateShot = db.AnimalShots.Where(f => f.Shot.Name == word && f.AnimalId == animal.AnimalId).ToArray();
+            var shotz = shotUpdateShot;
             
-            if (shotUpdateAnimal != null)
+            if (shotUpdateShot.Length > 0)
             {
-                AnimalShot animalShot = new AnimalShot { DateReceived = DateTime.Now };
-                db.AnimalShots.InsertOnSubmit(animalShot);
+                var thisShot = shotz[0];
+                thisShot.DateReceived = DateTime.Now;
+                db.SubmitChanges();
             }
             
-            if (shotUpdateShot == null)
+            if (shotUpdateAnimal == null)
             {
-                AnimalShot animalShot = new AnimalShot { AnimalId = animal.AnimalId, ShotId = shotz.Shot.ShotId, DateReceived = DateTime.Now };
-                
-                    db.AnimalShots.InsertOnSubmit(animalShot);
-                    db.SubmitChanges();  
+                AnimalShot animalShot = new AnimalShot { AnimalId = animal.AnimalId, ShotId = 6, DateReceived = DateTime.Now };
+                db.AnimalShots.InsertOnSubmit(animalShot);
+                db.SubmitChanges();  
             }
             
 
