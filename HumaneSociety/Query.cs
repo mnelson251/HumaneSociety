@@ -572,7 +572,6 @@ namespace HumaneSociety
 
         public static DietPlan FindDietPlan(string nameOfPlan)
         {
-
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             DietPlan planToMod = db.DietPlans.Where(d => d.Name == nameOfPlan).Single();
             return planToMod;
