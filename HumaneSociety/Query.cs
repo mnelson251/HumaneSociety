@@ -215,8 +215,7 @@ namespace HumaneSociety
             Animal animal = db.Animals.Where(c => c.AnimalId == id).Single();
             return animal;
         }
-
-
+        
         //TODO
         public static void Adopt(Animal animal, Client client)
         {
