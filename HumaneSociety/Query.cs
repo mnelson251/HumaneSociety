@@ -243,11 +243,6 @@ namespace HumaneSociety
             }
             db.SubmitChanges();
         }
-        
-        public static void AddAdoption()
-        {
-
-        }
 
         // USER EMPLOYEE CLASS //
 
