@@ -27,7 +27,7 @@ namespace HumaneSociety
         protected override void RunUserMenus()
         {
             Console.Clear();
-            List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status",  "4. Approve Adoption" , "5. Check All Categories", "6. Make New Category",  "7. Check Housing", "8. Manage Housing", "9. Make New Diet-Plan", "10. Check All DietPlans"};
+            List<string> options = new List<string>() { "What would you like to do? (select number of choice)", "1. Add animal", "2. Remove Anmial", "3. Check Animal Status",  "4. Approve Adoption" , "5. Check All Categories", "6. Make New Category",  "7. Check Housing", "8. Manage Housing", "9. Make New Diet-Plan", "10. Check All DietPlans", "11. Modify Existing Diet-Plan" };
             UserInterface.DisplayUserOptions(options);
             string input = UserInterface.GetUserInput();
             RunUserInput(input);
@@ -75,6 +75,10 @@ namespace HumaneSociety
                     return;
                 case "10":
                     CheckCurrentDietPlans();
+                    RunUserMenus();
+                    return;
+                case "11":
+                    ModDietPlan();
                     RunUserMenus();
                     return;
                 default:
@@ -491,5 +495,44 @@ namespace HumaneSociety
             Console.ReadLine();
         }
 
+
+
+        public static void ModDietPlan()
+        {
+            Console.Clear();
+
+            Console.WriteLine("Choose The Name Of The Plan You Wish To Modify");
+            string planToMod = Console.ReadLine();
+            DietPlan ModThisPlan = Query.FindDietPlan(planToMod);
+
+            Console.WriteLine("Choose a feild to modify: 1. Name  2. Food Type  3. Amount, in Cups");
+            var fieldToMod = Convert.ToInt32(Console.ReadLine());
+
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+
+            if (fieldToMod == 1)
+            {
+                string newName = UserInterface.GetStringData("name", "the new");
+                ModThisPlan.Name = newName;
+            }
+            else if (fieldToMod == 2)
+            {
+                string newFoodType = UserInterface.GetStringData("type", "the new");
+                ModThisPlan.FoodType = newFoodType;
+            }
+            else if (fieldToMod == 3)
+            {
+                int newFoodAmount = UserInterface.GetIntegerData("amount", "the new food");
+                ModThisPlan.FoodAmountInCups = newFoodAmount;
+            }
+            else
+            {
+                Console.WriteLine("Not A Valid Field To Modify");
+                Console.ReadLine();
+            }
+
+            db.SubmitChanges();
+
+        }
     }
 }

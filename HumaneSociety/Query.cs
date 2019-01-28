@@ -562,12 +562,10 @@ namespace HumaneSociety
                 DietPlan dietplanFromDB = db.DietPlans.Where(c => c.Name == name).Single();
                 return true;
             }
-
             catch (InvalidOperationException)
             {
                 return false;
             }
-
         }
 
         public static List<DietPlan> GetAllDietPlans()
@@ -575,9 +573,16 @@ namespace HumaneSociety
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             var allDietPlans = db.DietPlans.ToList();
             return allDietPlans;
-
-
         }
 
+        public static DietPlan FindDietPlan(string nameOfPlan)
+        {
+
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            DietPlan planToMod = db.DietPlans.Where(d => d.Name == nameOfPlan).SingleOrDefault();
+            return planToMod;
+        }
+
+       
     }
 }
