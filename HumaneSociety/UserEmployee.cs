@@ -507,28 +507,34 @@ namespace HumaneSociety
             Console.Clear();
 
             Console.WriteLine("Choose The Name Of The Plan You Wish To Modify");
-            string planToMod = Console.ReadLine();
-            DietPlan ModThisPlan = Query.FindDietPlan(planToMod);
+           // string planToMod = Console.ReadLine();
+            DietPlan ModThisPlan = Query.FindDietPlan(UserInterface.GetUserInput());
 
             Console.WriteLine("Choose a feild to modify: 1. Name  2. Food Type  3. Amount, in Cups");
             var fieldToMod = Convert.ToInt32(Console.ReadLine());
 
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
 
+            //THIS IS THE LINE I ADDED
+            var dietPlantFromDb = db.DietPlans.Where(d => d.Name == ModThisPlan.Name).Single();
+
             if (fieldToMod == 1)
             {
                 string newName = UserInterface.GetStringData("name", "the new");
-                ModThisPlan.Name = newName;
+                //THIS IS WHERE I MADE CHANGES --SO THAT THE DIET PLAN THATS IN THE DB CHANGES
+                dietPlantFromDb.Name = newName;
             }
             else if (fieldToMod == 2)
             {
                 string newFoodType = UserInterface.GetStringData("type", "the new");
-                ModThisPlan.FoodType = newFoodType;
+                //THIS IS WHERE I MADE CHANGES --SO THAT THE DIET PLAN THATS IN THE DB CHANGES
+                dietPlantFromDb.FoodType = newFoodType;
             }
             else if (fieldToMod == 3)
             {
                 int newFoodAmount = UserInterface.GetIntegerData("amount", "the new food");
-                ModThisPlan.FoodAmountInCups = newFoodAmount;
+                //THIS IS WHERE I MADE CHANGES --SO THAT THE DIET PLAN THATS IN THE DB CHANGES
+                dietPlantFromDb.FoodAmountInCups = newFoodAmount;
             }
             else
             {
