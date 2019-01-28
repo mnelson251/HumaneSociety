@@ -180,6 +180,11 @@ namespace HumaneSociety
                 int input = UserInterface.GetIntegerData();
                 ApproveAdoption(adoptions[input - 1]);
             }
+            else
+            {
+                UserInterface.DisplayUserOptions("No Pending Adoptions");
+                UserInterface.GetUserInput();
+            }
 
         }
         

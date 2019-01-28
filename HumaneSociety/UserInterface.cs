@@ -89,7 +89,7 @@ namespace HumaneSociety
         {
             foreach(Animal animal in animals)
             {
-                Console.WriteLine("Animal ID: " + animal.AnimalId + "\nAnimal Name: " + animal.Name + "\nAnimal Category: " + animal.Category.Name);
+                Console.WriteLine("Animal ID: " + animal.AnimalId + "\nAnimal Name: " + animal.Name + "\nAnimal Category: " + animal.Category.Name + "\nStatus: " +animal.AdoptionStatus);
             }
         }
 
