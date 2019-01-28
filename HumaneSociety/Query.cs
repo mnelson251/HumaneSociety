@@ -450,10 +450,47 @@ namespace HumaneSociety
             db.SubmitChanges();
         }
 
-            //Hold until MONDAY - look into how to do
+        //Hold until MONDAY - look into how to do
+
+        public delegate void AdminDelegate(Employee employee, string word);
+
         public static void RunEmployeeQueries(Employee employee, string word)
         {
-            throw new Exception();
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            AdminDelegate adminDelegate;
+            switch(word)
+            {
+                case "update":
+                    adminDelegate = new AdminDelegate(updateEmployee);
+                    break;
+                case "read":
+                    adminDelegate = new AdminDelegate(readEmployee);
+                    break;
+                case "remove":
+                    adminDelegate = new AdminDelegate(removeEmployee);
+                    break;
+                case "add":
+                    adminDelegate = new AdminDelegate(addEmployee);
+                    break;
+            }
+
+        }
+
+        public static void updateEmployee(Employee employee, string word)
+        {
+
+        }
+        public static void readEmployee(Employee employee, string word)
+        {
+
+        }
+        public static void removeEmployee(Employee employee, string word)
+        {
+
+        }
+        public static void addEmployee(Employee employee, string word)
+        {
+
         }
 
         // USERINTERFACE CLASS //
