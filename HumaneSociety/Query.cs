@@ -375,16 +375,14 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             var animalsToBeRemoved = db.Animals.Where(d => d.Name == animal.Name).ToList();
-
-            
             ResetRoomFields(animal);
 
-            if (db.AnimalShots.Where(s=> s.AnimalId == animal.AnimalId) != null) //test to see what this is comparing against a table or the "animalid"
+            if (db.AnimalShots.Where(s=> s.AnimalId == animal.AnimalId) != null) 
             {
                 RemoveAnimalShotFields(animal);
             }
 
-            if (db.Adoptions.Where(a=>a.AnimalId == animal.AnimalId) != null) //^^^^same as above
+            if (db.Adoptions.Where(a=>a.AnimalId == animal.AnimalId) != null) 
 
             {
                 RemoveAdoptionFields(animal);
@@ -434,10 +432,7 @@ namespace HumaneSociety
             var category = db.Categories.Where(c => c.CategoryId == animalTypeId).Single();
             return category.CategoryId;
         }
-
-       
-
-        //DONE
+        
         public static int GetDietPlanId()
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
@@ -455,10 +450,6 @@ namespace HumaneSociety
             db.Animals.InsertOnSubmit(animal);
             db.SubmitChanges();
         }
-
-
-
-        // ADMIN CLASS //
 
             //Hold until MONDAY - look into how to do
         public static void RunEmployeeQueries(Employee employee, string word)
@@ -524,7 +515,6 @@ namespace HumaneSociety
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             db.Categories.InsertOnSubmit(category);
             db.SubmitChanges();
-
         }
 
         public static void AddDietPlan(DietPlan dietplan)
