@@ -579,7 +579,7 @@ namespace HumaneSociety
         {
 
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            DietPlan planToMod = db.DietPlans.Where(d => d.Name == nameOfPlan).SingleOrDefault();
+            DietPlan planToMod = db.DietPlans.Where(d => d.Name == nameOfPlan).Single();
             return planToMod;
         }
 
