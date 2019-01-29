@@ -103,7 +103,7 @@ namespace HumaneSociety
             try
             {
                 Console.Clear();
-                Query.RunEmployeeQueries(employee, "delete");
+                Query.RunEmployeeQueries(employee, "remove");
                 UserInterface.DisplayUserOptions("Employee successfully removed");
             }
             catch
@@ -123,7 +123,7 @@ namespace HumaneSociety
             employee.Email = UserInterface.GetStringData("email", "the employee's"); ;
             try
             {
-                Query.RunEmployeeQueries(employee, "create");
+                Query.RunEmployeeQueries(employee, "add");
                 UserInterface.DisplayUserOptions("Employee addition successful.");
             }
             catch

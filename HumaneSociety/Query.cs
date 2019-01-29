@@ -468,9 +468,11 @@ namespace HumaneSociety
                     break;
                 case "remove":
                     adminDelegate = new AdminDelegate(removeEmployee);
+                    adminDelegate(employee);
                     break;
                 case "add":
                     adminDelegate = new AdminDelegate(addEmployee);
+                    adminDelegate(employee);
                     break;
             }
 
@@ -494,16 +496,16 @@ namespace HumaneSociety
         public static void addEmployee(Employee employee)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            string NewFirstName = UserInterface.GetStringData("First Name", "The New Employee's");
-            string NewLastName = UserInterface.GetStringData("Last Name", "The New Employee's");
-            string NewUserName = UserInterface.GetStringData("User Name", "The New Employee's");
-            string NewPassword = UserInterface.GetStringData("Password", "The New Employee's");
-            int NewEmployeeNumber = UserInterface.GetIntegerData("Employee Number", "The New Employee's");
-            string NewEmail = UserInterface.GetStringData("Email Address", "the new Employee's");
+            //string NewFirstName = UserInterface.GetStringData("First Name", "The New Employee's");
+            //string NewLastName = UserInterface.GetStringData("Last Name", "The New Employee's");
+            //string NewUserName = UserInterface.GetStringData("User Name", "The New Employee's");
+            //string NewPassword = UserInterface.GetStringData("Password", "The New Employee's");
+            //int NewEmployeeNumber = UserInterface.GetIntegerData("Employee Number", "The New Employee's");
+            //string NewEmail = UserInterface.GetStringData("Email Address", "the new Employee's");
 
-            Employee newEmployee = new Employee { FirstName = NewFirstName, LastName = NewLastName, UserName = NewUserName, Password = NewPassword, EmployeeNumber = NewEmployeeNumber, Email = NewEmail };
+            //Employee newEmployee = new Employee { FirstName = NewFirstName, LastName = NewLastName, UserName = NewUserName, Password = NewPassword, EmployeeNumber = NewEmployeeNumber, Email = NewEmail };
 
-            db.Employees.InsertOnSubmit(newEmployee);
+            db.Employees.InsertOnSubmit(employee);
             db.SubmitChanges();
 
         }
