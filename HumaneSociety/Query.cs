@@ -216,19 +216,30 @@ namespace HumaneSociety
             return animal;
         }
         
+        public static void CreateAdoption(Animal animal, Client client)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Adoption adoption = new Adoption();
+            adoption.AdoptionFee = 75;
+            adoption.ClientId = client.ClientId;
+            adoption.AnimalId = animal.AnimalId;
+            adoption.ApprovalStatus = "pending";
+            adoption.Animal.AdoptionStatus = "requested";
+            adoption.PaymentCollected = false;
+            UserInterface.DisplayUserOptions("Adoption request sent we will hold $75 adoption fee until processed");
+            UserInterface.GetUserInput();
+            db.Adoptions.InsertOnSubmit(adoption);
+            db.SubmitChanges();
+
+        }
         //TODO
         public static void Adopt(Animal animal, Client client)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             var adoptionFromDb = db.Adoptions.Where(a => a.AnimalId == animal.AnimalId).Single();
-            if(adoptionFromDb.ClientId == null)
+            if(adoptionFromDb == null)
             {
-                adoptionFromDb.AdoptionFee = 75;
-                adoptionFromDb.ClientId = client.ClientId;
-                adoptionFromDb.ApprovalStatus = "pending";
-                adoptionFromDb.Animal.AdoptionStatus = "requested";
-                UserInterface.DisplayUserOptions("Adoption request sent we will hold $75 adoption fee until processed");
-                UserInterface.GetUserInput();
+                CreateAdoption(animal, client);
             }
             else if(adoptionFromDb.ClientId == client.ClientId)
             {

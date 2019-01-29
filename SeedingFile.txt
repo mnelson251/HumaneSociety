@@ -10,10 +10,10 @@ INSERT INTO dbo.Categories (CategoryId, Name) VALUES (7, 'Rabbit');
 INSERT INTO dbo.Categories (CategoryId, Name) VALUES (8, 'Snake');
 INSERT INTO dbo.Categories (CategoryId, Name) VALUES (9, 'Monkey');
 INSERT INTO dbo.Categories (CategoryId, Name) VALUES (10, 'Hamster');
-<<<<<<< HEAD
+
 =======
 SET IDENTITY_INSERT dbo.Categories OFF
->>>>>>> 0a953f9e028bc46eb6dac1765d90f1fd77437d4c
+
 
 
 // DIET PLANS

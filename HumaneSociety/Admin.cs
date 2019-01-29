@@ -62,8 +62,6 @@ namespace HumaneSociety
         private void UpdateEmployee()
         {
             Employee employee = new Employee();
-           // employee.EmployeeId = UserInterface.GetIntegerData("ID", "the employee's");
-            //Maybe another query Get EMployee by Id - a list -returning multiple maybe
             employee.FirstName = UserInterface.GetStringData("first name", "the employee's");
             employee.LastName = UserInterface.GetStringData("last name", "the employee's");
             employee.EmployeeNumber = UserInterface.GetIntegerData("employee number", "the employee's");
