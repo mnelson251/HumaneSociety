@@ -469,10 +469,12 @@ namespace HumaneSociety
                     adminDelegate(employee);
                     break;
                 case "remove":
-                   // adminDelegate = new AdminDelegate(removeEmployee);
+                    adminDelegate = new AdminDelegate(removeEmployee);
+                    adminDelegate(employee);
                     break;
                 case "add":
-                   // adminDelegate = new AdminDelegate(addEmployee);
+                    adminDelegate = new AdminDelegate(addEmployee);
+                    adminDelegate(employee);
                     break;
             }
         }
@@ -497,11 +499,16 @@ namespace HumaneSociety
         }
         public static void removeEmployee(Employee employee)
         {
-
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var toBeRemoved = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber).SingleOrDefault();
+            db.Employees.DeleteOnSubmit(toBeRemoved);
+            db.SubmitChanges();
         }
         public static void addEmployee(Employee employee)
         {
-
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            db.Employees.InsertOnSubmit(employee);
+            db.SubmitChanges();
         }
         // USERINTERFACE CLASS //
         public static Room GetRoom(int id)
