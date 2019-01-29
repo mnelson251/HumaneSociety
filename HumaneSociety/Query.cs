@@ -489,22 +489,14 @@ namespace HumaneSociety
         public static void removeEmployee(Employee employee)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            var toBeRemoved = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).SingleOrDefault();
+            var toBeRemoved = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber).SingleOrDefault();
             db.Employees.DeleteOnSubmit(toBeRemoved);
             db.SubmitChanges();
         }
         public static void addEmployee(Employee employee)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            //string NewFirstName = UserInterface.GetStringData("First Name", "The New Employee's");
-            //string NewLastName = UserInterface.GetStringData("Last Name", "The New Employee's");
-            //string NewUserName = UserInterface.GetStringData("User Name", "The New Employee's");
-            //string NewPassword = UserInterface.GetStringData("Password", "The New Employee's");
-            //int NewEmployeeNumber = UserInterface.GetIntegerData("Employee Number", "The New Employee's");
-            //string NewEmail = UserInterface.GetStringData("Email Address", "the new Employee's");
-
-            //Employee newEmployee = new Employee { FirstName = NewFirstName, LastName = NewLastName, UserName = NewUserName, Password = NewPassword, EmployeeNumber = NewEmployeeNumber, Email = NewEmail };
-
+            
             db.Employees.InsertOnSubmit(employee);
             db.SubmitChanges();
 
