@@ -215,13 +215,14 @@ namespace HumaneSociety
             Animal animal = db.Animals.Where(c => c.AnimalId == id).Single();
             return animal;
         }
+
         
-        //TODO
         public static void Adopt(Animal animal, Client client)
+            
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            var adoptionFromDb = db.Adoptions.Where(a => a.AnimalId == animal.AnimalId).Single();
-            if(adoptionFromDb.ClientId == null)
+            var adoptionFromDb = db.Adoptions.Where(a => a.AnimalId == animal.AnimalId).SingleOrDefault();
+            if(adoptionFromDb == null)
             {
                 adoptionFromDb.AdoptionFee = 75;
                 adoptionFromDb.ClientId = client.ClientId;
