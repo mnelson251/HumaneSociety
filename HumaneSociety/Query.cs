@@ -452,7 +452,7 @@ namespace HumaneSociety
 
         //Hold until MONDAY - look into how to do
 
-        public delegate void AdminDelegate(Employee employee, string word);
+        public delegate void AdminDelegate(Employee employee);
 
         public static void RunEmployeeQueries(Employee employee, string word)
         {
@@ -462,37 +462,47 @@ namespace HumaneSociety
             {
                 case "update":
                     adminDelegate = new AdminDelegate(updateEmployee);
+                    adminDelegate(employee);
                     break;
                 case "read":
                     adminDelegate = new AdminDelegate(readEmployee);
+                    adminDelegate(employee);
                     break;
                 case "remove":
-                    adminDelegate = new AdminDelegate(removeEmployee);
+                   // adminDelegate = new AdminDelegate(removeEmployee);
                     break;
                 case "add":
-                    adminDelegate = new AdminDelegate(addEmployee);
+                   // adminDelegate = new AdminDelegate(addEmployee);
                     break;
             }
-
         }
 
-        public static void updateEmployee(Employee employee, string word)
+        public static void updateEmployee(Employee employee)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var employeeFromDb = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber).Single();
+            employeeFromDb.FirstName = employee.FirstName;
+            employeeFromDb.LastName = employee.LastName;
+            employeeFromDb.UserName = employee.UserName;
+            employeeFromDb.Password = employee.Password;
+            employeeFromDb.Email = employee.Email;
+            db.SubmitChanges();
+        }
+        public static void readEmployee(Employee employee)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var employeeFromDb = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber).Single();
+            UserInterface.DisplayEmployeeInfo(employeeFromDb);
+
+        }
+        public static void removeEmployee(Employee employee)
         {
 
         }
-        public static void readEmployee(Employee employee, string word)
+        public static void addEmployee(Employee employee)
         {
 
         }
-        public static void removeEmployee(Employee employee, string word)
-        {
-
-        }
-        public static void addEmployee(Employee employee, string word)
-        {
-
-        }
-
         // USERINTERFACE CLASS //
         public static Room GetRoom(int id)
         {
