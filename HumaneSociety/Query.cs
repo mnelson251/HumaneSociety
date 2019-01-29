@@ -475,7 +475,6 @@ namespace HumaneSociety
                     adminDelegate(employee);
                     break;
             }
-
         }
 
         public static void updateEmployee(Employee employee)
@@ -496,10 +495,8 @@ namespace HumaneSociety
         public static void addEmployee(Employee employee)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            
             db.Employees.InsertOnSubmit(employee);
             db.SubmitChanges();
-
         }
 
         // USERINTERFACE CLASS //
