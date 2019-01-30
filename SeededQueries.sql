@@ -1,3 +1,4 @@
-ALTER TABLE dbo.adoptions
-ADD AnimalStatus varchar(50);
-SELECT * FROM dbo.Adoptions;
+SELECT * FROM dbo.Employees
+SELECT * FROM dbo.Clients
+SELECT * FROM dbo.animals
+SELECT * FROM dbo.adoptions

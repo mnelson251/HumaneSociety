@@ -123,42 +123,53 @@ namespace HumaneSociety
         {
 
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            string dictionaryValue = searchParameterDictionary.Values.ElementAt(0);
-            int dictionaryKey = searchParameterDictionary.Keys.ElementAt(0);
-
-
-            switch (dictionaryKey)
+            List<Animal> defaultReturn = new List<Animal>();
+            try
             {
-                case 1:
-                    var categorySearchResult = db.Animals.Where(a=>a.Category.Name == dictionaryValue).ToList();
-                    return categorySearchResult;
-                case 2:
-                    var nameSearchResult = db.Animals.Where(a => a.Name == dictionaryValue).ToList();
-                    return nameSearchResult;
-                case 3:
-                    var ageSearchResult = db.Animals.Where(a => a.Age == Int32.Parse(dictionaryValue)).ToList();
-                    return ageSearchResult;
-                case 4:
-                    var demeanorSearchResult = db.Animals.Where(a => a.Demeanor == dictionaryValue).ToList();
-                    return demeanorSearchResult;
-                case 5:
-                    var kidFriendlySearchResult = db.Animals.Where(a => a.KidFriendly.ToString() == dictionaryValue).ToList();
-                    return kidFriendlySearchResult;
-                case 6:
-                    var petFriendlySearchResult = db.Animals.Where(a => a.PetFriendly.ToString() == dictionaryValue).ToList();
-                    return petFriendlySearchResult;
-                case 7:
-                    var weightSearchResult = db.Animals.Where(a => a.Weight == Int32.Parse(dictionaryValue)).ToList();
-                    return weightSearchResult;
-                case 8:
-                    var idSearchResult = db.Animals.Where(a => a.AnimalId == Int32.Parse(dictionaryValue)).ToList();
-                    return idSearchResult;
-                case 9:
+                string dictionaryValue = searchParameterDictionary.Values.ElementAt(0);
+                int dictionaryKey = searchParameterDictionary.Keys.ElementAt(0);
 
-                    return SearchForAnimalByMultipleTraits(searchParameterDictionary);
-                default:
-                    List<Animal> defaultReturn = new List<Animal>();
-                    return defaultReturn;
+
+                switch (dictionaryKey)
+                {
+                    case 1:
+                        var categorySearchResult = db.Animals.Where(a => a.Category.Name == dictionaryValue).ToList();
+                        return categorySearchResult;
+                    case 2:
+                        var nameSearchResult = db.Animals.Where(a => a.Name == dictionaryValue).ToList();
+                        return nameSearchResult;
+                    case 3:
+                        var ageSearchResult = db.Animals.Where(a => a.Age == Int32.Parse(dictionaryValue)).ToList();
+                        return ageSearchResult;
+                    case 4:
+                        var demeanorSearchResult = db.Animals.Where(a => a.Demeanor == dictionaryValue).ToList();
+                        return demeanorSearchResult;
+                    case 5:
+                        var kidFriendlySearchResult = db.Animals.Where(a => a.KidFriendly.ToString() == dictionaryValue).ToList();
+                        return kidFriendlySearchResult;
+                    case 6:
+                        var petFriendlySearchResult = db.Animals.Where(a => a.PetFriendly.ToString() == dictionaryValue).ToList();
+                        return petFriendlySearchResult;
+                    case 7:
+                        var weightSearchResult = db.Animals.Where(a => a.Weight == Int32.Parse(dictionaryValue)).ToList();
+                        return weightSearchResult;
+                    case 8:
+                        var idSearchResult = db.Animals.Where(a => a.AnimalId == Int32.Parse(dictionaryValue)).ToList();
+                        return idSearchResult;
+                    case 9:
+
+                        return SearchForAnimalByMultipleTraits(searchParameterDictionary);
+                    default:
+                        List<Animal> defaultRetrun = new List<Animal>();
+                        return defaultReturn;
+
+                }
+            }
+
+            catch
+            {
+                return defaultReturn;
+
             }
         }
 
@@ -222,12 +233,15 @@ namespace HumaneSociety
         public static void CreateAdoption(Animal animal, Client client)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var animalFromDb = db.Animals.Where(c => c.AnimalId == animal.AnimalId).Single();
             Adoption adoption = new Adoption();
             adoption.AdoptionFee = 75;
             adoption.ClientId = client.ClientId;
             adoption.AnimalId = animal.AnimalId;
             adoption.ApprovalStatus = "pending";
-           // adoption.Animal.AdoptionStatus = "requested";
+
+            animalFromDb.AdoptionStatus = "requested";
+
             adoption.PaymentCollected = false;
             UserInterface.DisplayUserOptions("Adoption request sent we will hold $75 adoption fee until processed");
             UserInterface.GetUserInput();
@@ -237,13 +251,9 @@ namespace HumaneSociety
         }
 
         public static void Adopt(Animal animal, Client client)
-            
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-
             var adoptionFromDb = db.Adoptions.Where(a => a.AnimalId == animal.AnimalId).SingleOrDefault();
-
-
             if(adoptionFromDb == null)
             {
                 CreateAdoption(animal, client);
@@ -252,6 +262,14 @@ namespace HumaneSociety
             {
                 UserInterface.DisplayUserOptions("You've request for adoption is being processed. You will be notified once its approved.");
                 UserInterface.GetUserInput();
+            }
+            else if(adoptionFromDb.ApprovalStatus == "denied")
+            {
+                adoptionFromDb.ClientId = client.ClientId;
+                UpdateAdoption(true, adoptionFromDb);
+                UserInterface.DisplayUserOptions("Adoption request sent we will hold $75 adoption fee until processed");
+                UserInterface.GetUserInput();
+                return;
             }
             else
             {
@@ -280,6 +298,7 @@ namespace HumaneSociety
             {
                 adoptionFromDb.ApprovalStatus = "approved";
                 adoptionFromDb.Animal.AdoptionStatus = "adopted";
+                adoptionFromDb.PaymentCollected = true;
             }
             else
             {
