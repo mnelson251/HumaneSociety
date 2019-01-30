@@ -153,6 +153,9 @@ namespace HumaneSociety
                 case 8:
                     var idSearchResult = db.Animals.Where(a => a.AnimalId == Int32.Parse(dictionaryValue)).ToList();
                     return idSearchResult;
+                case 9:
+
+                    return SearchForAnimalByMultipleTraits(searchParameterDictionary);
                 default:
                     List<Animal> defaultReturn = new List<Animal>();
                     return defaultReturn;
@@ -216,20 +219,34 @@ namespace HumaneSociety
             return animal;
         }
 
-        
+        public static void CreateAdoption(Animal animal, Client client)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Adoption adoption = new Adoption();
+            adoption.AdoptionFee = 75;
+            adoption.ClientId = client.ClientId;
+            adoption.AnimalId = animal.AnimalId;
+            adoption.ApprovalStatus = "pending";
+           // adoption.Animal.AdoptionStatus = "requested";
+            adoption.PaymentCollected = false;
+            UserInterface.DisplayUserOptions("Adoption request sent we will hold $75 adoption fee until processed");
+            UserInterface.GetUserInput();
+            db.Adoptions.InsertOnSubmit(adoption);
+            db.SubmitChanges();
+
+        }
+
         public static void Adopt(Animal animal, Client client)
             
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+
             var adoptionFromDb = db.Adoptions.Where(a => a.AnimalId == animal.AnimalId).SingleOrDefault();
+
+
             if(adoptionFromDb == null)
             {
-                adoptionFromDb.AdoptionFee = 75;
-                adoptionFromDb.ClientId = client.ClientId;
-                adoptionFromDb.ApprovalStatus = "pending";
-                adoptionFromDb.Animal.AdoptionStatus = "requested";
-                UserInterface.DisplayUserOptions("Adoption request sent we will hold $75 adoption fee until processed");
-                UserInterface.GetUserInput();
+                CreateAdoption(animal, client);
             }
             else if(adoptionFromDb.ClientId == client.ClientId)
             {
@@ -463,9 +480,11 @@ namespace HumaneSociety
             {
                 case "update":
                     adminDelegate = new AdminDelegate(updateEmployee);
+                    adminDelegate(employee);
                     break;
                 case "read":
                     adminDelegate = new AdminDelegate(readEmployee);
+                    adminDelegate(employee);
                     break;
                 case "remove":
                     adminDelegate = new AdminDelegate(removeEmployee);
@@ -480,10 +499,20 @@ namespace HumaneSociety
 
         public static void updateEmployee(Employee employee)
         {
-
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var employeeFromDb = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber).Single();
+            employeeFromDb.FirstName = employee.FirstName;
+            employeeFromDb.LastName = employee.LastName;
+            employeeFromDb.UserName = employee.UserName;
+            employeeFromDb.Password = employee.Password;
+            employeeFromDb.Email = employee.Email;
+            db.SubmitChanges();
         }
         public static void readEmployee(Employee employee)
         {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            var employeeFromDb = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber).Single();
+            UserInterface.DisplayEmployeeInfo(employeeFromDb);
 
         }
         public static void removeEmployee(Employee employee)
@@ -499,7 +528,6 @@ namespace HumaneSociety
             db.Employees.InsertOnSubmit(employee);
             db.SubmitChanges();
         }
-
         // USERINTERFACE CLASS //
         public static Room GetRoom(int id)
         {

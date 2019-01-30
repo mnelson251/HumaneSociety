@@ -136,9 +136,13 @@ namespace HumaneSociety
             List<string> info = new List<string>() {"ID: " + animal.AnimalId, animal.Name +" - "+ animal.Category.Name, animal.Age + " years old", "Demeanour: " + animal.Demeanor, "Kid friendly: " + BoolToYesNo(animal.KidFriendly), "pet friendly: " + BoolToYesNo(animal.PetFriendly), $"Location: Room # " + animalRoom.RoomNumber, "Weight: " + animal.Weight.ToString(),  "Food amoumnt in cups:" + animal.DietPlan.FoodAmountInCups};
             DisplayUserOptions(info);
             Console.ReadLine();
-
         }
-
+        internal static void DisplayEmployeeInfo(Employee employee)
+        {
+            List<string> info = new List<string>() { "FIRST NAME - "+ employee.FirstName, "LAST NAME - "+employee.LastName, "USER NAME - "+employee.UserName, "EMPLOYEE # - "+employee.EmployeeNumber.ToString(), "EMPLOYEE EMAIL - "+employee.Email };
+            DisplayUserOptions(info);
+            Console.ReadLine();
+        }
         private static string BoolToYesNo(bool? input)
         {
             if (input == true)
